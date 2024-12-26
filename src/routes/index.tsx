@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Dashboard } from '../pages/Dashboard';
+import Dashboard from '../pages/Dashboard';
 import { BookList, BookCategories, BookIds } from '../pages/Books';
 import { UserManagement } from '../pages/Users';
 import { Questions, Exams } from '../pages/Warehouse';
