@@ -42,6 +42,16 @@
   background-color: #f0f7ff !important;
 }
 
+/* Modal styles */
+.ant-modal-wrap {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.ant-modal-wrap::-webkit-scrollbar {
+  display: none;
+}
+
 /* Add custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
