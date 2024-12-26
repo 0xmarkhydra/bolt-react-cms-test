@@ -3,20 +3,20 @@ import { Table, Tag, Space, Button, Tooltip } from 'antd';
 import { PrinterOutlined, EditOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { BookData } from '../types';
-import BookPrintModal from './BookPrintModal';
+import BookPrintDrawer from './BookPrintDrawer';
 
 const BookTable: React.FC<{ data: BookData[] }> = ({ data }) => {
-  const [printModalOpen, setPrintModalOpen] = useState(false);
+  const [printDrawerOpen, setPrintDrawerOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<BookData | null>(null);
 
   const handlePrint = (book: BookData) => {
     setSelectedBook(book);
-    setPrintModalOpen(true);
+    setPrintDrawerOpen(true);
   };
 
   const handlePrintConfirm = (quantity: number) => {
     console.log('Printing', quantity, 'copies of', selectedBook?.title);
-    setPrintModalOpen(false);
+    setPrintDrawerOpen(false);
     setSelectedBook(null);
   };
 
@@ -120,10 +120,10 @@ const BookTable: React.FC<{ data: BookData[] }> = ({ data }) => {
       />
 
       {selectedBook && (
-        <BookPrintModal
-          open={printModalOpen}
+        <BookPrintDrawer
+          open={printDrawerOpen}
           onClose={() => {
-            setPrintModalOpen(false);
+            setPrintDrawerOpen(false);
             setSelectedBook(null);
           }}
           onConfirm={handlePrintConfirm}
