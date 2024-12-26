@@ -1,30 +1,50 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Upload, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import type { UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 
-export const BookCover: React.FC = () => {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
-  const beforeUpload = (file: File) => {
-    const isImage = file.type.startsWith('image/');
-    if (!isImage) {
-      message.error('Chỉ có thể tải lên file ảnh!');
-      return false;
+export const BookCover: React.FC = () => {
+  const [fileList, setFileList] = React.useState<UploadFile[]>([]);
+
+  const beforeUpload: UploadProps['beforeUpload'] = (file) => {
+    // Check file type
+    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+      message.error('Chỉ chấp nhận file ảnh định dạng JPG, PNG, GIF hoặc WebP!');
+      return Upload.LIST_IGNORE;
     }
-    return true;
+
+    // Check file size
+    if (file.size > MAX_FILE_SIZE) {
+      message.error('Kích thước file không được vượt quá 5MB!');
+      return Upload.LIST_IGNORE;
+    }
+
+    return false;
   };
 
-  const handleChange = ({ fileList: newFileList }: any) => {
+  const normFile = (e: any) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList?.slice(-1);
+  };
+
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
 
   return (
-    <div className="w-1/3">
+    <div className="w-[280px]">
       <Form.Item
         name="cover"
-        label="Ảnh bìa sách"
+        label={<span className="text-base">Ảnh bìa sách</span>}
         valuePropName="fileList"
+        getValueFromEvent={normFile}
+        className="mb-0"
       >
         <Upload
           listType="picture-card"
@@ -32,16 +52,45 @@ export const BookCover: React.FC = () => {
           beforeUpload={beforeUpload}
           onChange={handleChange}
           maxCount={1}
-          className="w-full [&_.ant-upload]:!w-full [&_.ant-upload]:!h-[400px] [&_.ant-upload.ant-upload-select]:!w-full [&_.ant-upload.ant-upload-select]:!h-full"
+          accept={ALLOWED_FILE_TYPES.join(',')}
+          className="book-cover-upload"
         >
           {fileList.length === 0 && (
             <div className="flex flex-col items-center justify-center w-full h-full">
-              <PlusOutlined className="text-2xl mb-2" />
-              <div className="text-sm">Tải ảnh lên</div>
+              <PlusOutlined className="text-3xl mb-4" />
+              <div className="text-base">Tải ảnh lên</div>
+              <div className="text-sm text-gray-500 mt-2">
+                (JPG, PNG, GIF, WebP)
+              </div>
             </div>
           )}
         </Upload>
       </Form.Item>
+
+      <style>{`
+        .book-cover-upload .ant-upload-wrapper,
+        .book-cover-upload .ant-upload,
+        .book-cover-upload .ant-upload-list,
+        .book-cover-upload .ant-upload-list-item-container,
+        .book-cover-upload .ant-upload-list-item {
+          width: 280px !important;
+          height: 373px !important;
+        }
+
+        .book-cover-upload .ant-upload-list-item-image {
+          object-fit: contain !important;
+          width: 100% !important;
+          height: 100% !important;
+          padding: 8px;
+        }
+
+        .book-cover-upload .ant-upload-list-item-thumbnail img {
+          object-fit: contain !important;
+          width: 100% !important;
+          height: 100% !important;
+          padding: 8px;
+        }
+      `}</style>
     </div>
   );
 };
