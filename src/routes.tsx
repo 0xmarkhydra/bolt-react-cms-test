@@ -1,15 +1,32 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
+import { BookList, BookCategories, BookIds } from './pages/Books';
+import { UserManagement } from './pages/Users';
+import { Questions, Exams } from './pages/Warehouse';
+import { Sliders, Teachers, RecentSearches } from './pages/Settings';
 
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
-      <Route path="/books/*" element={<div>Books Management</div>} />
-      <Route path="/users" element={<div>User Management</div>} />
-      <Route path="/warehouse/*" element={<div>Warehouse Management</div>} />
-      <Route path="/settings/*" element={<div>Settings</div>} />
+      
+      {/* Books routes */}
+      <Route path="/books/list" element={<BookList />} />
+      <Route path="/books/categories" element={<BookCategories />} />
+      <Route path="/books/ids" element={<BookIds />} />
+      
+      {/* Users route */}
+      <Route path="/users" element={<UserManagement />} />
+      
+      {/* Warehouse routes */}
+      <Route path="/warehouse/questions" element={<Questions />} />
+      <Route path="/warehouse/exams" element={<Exams />} />
+      
+      {/* Settings routes */}
+      <Route path="/settings/sliders" element={<Sliders />} />
+      <Route path="/settings/teachers" element={<Teachers />} />
+      <Route path="/settings/recent-searches" element={<RecentSearches />} />
     </Routes>
   );
 };

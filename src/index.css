@@ -33,6 +33,15 @@
   background: #45b630 !important;
 }
 
+/* Table striped rows */
+.ant-table-striped .ant-table-tbody > tr:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+
+.ant-table-striped .ant-table-tbody > tr:hover > td {
+  background-color: #f0f7ff !important;
+}
+
 /* Add custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
