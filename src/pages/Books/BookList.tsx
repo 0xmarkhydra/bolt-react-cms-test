@@ -3,7 +3,7 @@ import BookListHeader from './components/BookListHeader';
 import BookSearch from './components/BookSearch';
 import BookTable from './components/BookTable';
 import BookFormDrawer from './components/BookForm';
-import { mockBooks } from './data/mockData';
+import { mockBooks } from './data/mockBooks';
 import type { BookFormValues } from './components/BookForm/types';
 
 const BookList: React.FC = () => {

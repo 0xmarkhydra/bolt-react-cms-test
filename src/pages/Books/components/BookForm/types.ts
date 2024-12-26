@@ -5,6 +5,7 @@ export interface BookFormValues {
   categories: string[];
   subjects: string[];
   authors: string[];
+  publisher: string;
   summary?: string;
   cover?: UploadFile;
 }
@@ -15,4 +16,8 @@ export interface BookFormDrawerProps {
   onSubmit: (values: BookFormValues) => void;
   initialValues?: Partial<BookFormValues>;
   title?: string;
+}
+
+export interface BookFormModalProps extends Omit<BookFormDrawerProps, 'onClose'> {
+  onCancel: () => void;
 }

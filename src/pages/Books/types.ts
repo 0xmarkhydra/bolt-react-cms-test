@@ -1,26 +1,21 @@
-export interface BookData {
+// Category related types
+export interface Category {
   key: string;
-  cover: string;
-  title: string;
-  bookId: string;
-  status: 'active' | 'inactive';
-  publisher: string;
-  category: string;
-  totalPublished: number;
-  updatedAt: string;
-}
-
-export interface BookListHeaderProps {
+  name: string;
   totalBooks: number;
-  onRefresh: () => void;
-  onAddNew: () => void;
+  status: 'active' | 'inactive';
+  description: string;
+  children?: Category[];
 }
 
-export interface BookSearchProps {
-  value: string;
-  onChange: (value: string) => void;
+export interface CategoryDetailsProps {
+  category: Category | null;
+  onClose: () => void;
+  onEdit: (category: Category) => void;
+  onDelete: (key: string) => void;
 }
 
+// Book subject types
 export enum Subjects {
   // Nhóm môn bắt buộc
   Toan = 'Toán',

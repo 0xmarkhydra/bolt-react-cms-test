@@ -30,8 +30,16 @@ const BookTable: React.FC<BookTableProps> = ({ data, onEdit }) => {
       title: 'Ảnh bìa',
       dataIndex: 'cover',
       key: 'cover',
-      width: 80,
-      render: (cover) => <img src={cover} alt="book cover" className="w-10 h-10 object-cover rounded" />,
+      width: 100,
+      render: (cover) => (
+        <div className="w-[60px] h-[80px] overflow-hidden">
+          <img 
+            src={cover} 
+            alt="book cover" 
+            className="w-full h-full object-cover rounded-sm"
+          />
+        </div>
+      ),
     },
     {
       title: 'Tên sách',

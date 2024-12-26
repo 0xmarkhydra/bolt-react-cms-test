@@ -10,6 +10,7 @@ export const BookDetails: React.FC = () => {
   return (
     <div className="flex-1">
       <div className="space-y-6">
+        {/* Required Fields */}
         <Form.Item
           name="title"
           label={<span className="text-base">Tên sách</span>}
@@ -19,20 +20,6 @@ export const BookDetails: React.FC = () => {
             placeholder="Nhập tên sách"
             size="large"
             className="py-2"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="categories"
-          label={<span className="text-base">Danh mục</span>}
-          rules={[{ required: true, message: 'Vui lòng chọn danh mục!' }]}
-        >
-          <Select
-            mode="multiple"
-            placeholder="Chọn danh mục"
-            options={categories}
-            className="w-full"
-            size="large"
           />
         </Form.Item>
 
@@ -61,6 +48,31 @@ export const BookDetails: React.FC = () => {
             options={authors}
             className="w-full"
             size="large"
+          />
+        </Form.Item>
+
+        {/* Optional Fields */}
+        <Form.Item
+          name="categories"
+          label={<span className="text-base">Danh mục</span>}
+        >
+          <Select
+            mode="multiple"
+            placeholder="Chọn danh mục"
+            options={categories}
+            className="w-full"
+            size="large"
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="publisher"
+          label={<span className="text-base">Nhà xuất bản</span>}
+        >
+          <Input 
+            placeholder="Nhập tên nhà xuất bản"
+            size="large"
+            className="py-2"
           />
         </Form.Item>
 

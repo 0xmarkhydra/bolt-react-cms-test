@@ -1,81 +1,24 @@
 import React, { useState } from 'react';
-import { Card, Table, Button, Tag, Space, Input } from 'antd';
-import { PlusOutlined, SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-
-interface Category {
-  key: string;
-  name: string;
-  totalBooks: number;
-  status: 'active' | 'inactive';
-}
-
-const mockCategories: Category[] = [
-  {
-    key: '1',
-    name: 'IT',
-    totalBooks: 156,
-    status: 'active',
-  },
-  {
-    key: '2',
-    name: 'Marketing',
-    totalBooks: 89,
-    status: 'active',
-  },
-  {
-    key: '3',
-    name: 'Business',
-    totalBooks: 234,
-    status: 'inactive',
-  },
-];
+import { Card, Button, Input } from 'antd';
+import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import type { Category } from './types';
+import CategoryTree from './components/CategoryTree';
+import CategoryDetails from './components/CategoryDetails';
+import { useCategoryTree } from './hooks/useCategoryTree';
+import { mockCategories } from './data/mockData';
 
 const BookCategories: React.FC = () => {
   const [searchText, setSearchText] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const { categories, handleDrop } = useCategoryTree(mockCategories);
 
-  const columns = [
-    {
-      title: 'Tên danh mục',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text: string) => <span className="font-medium">{text}</span>,
-    },
-    {
-      title: 'Số lượng sách',
-      dataIndex: 'totalBooks',
-      key: 'totalBooks',
-      align: 'right' as const,
-      render: (total: number) => <Tag color="blue">{total}</Tag>,
-    },
-    {
-      title: 'Trạng thái',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status: string) => (
-        <Tag color={status === 'active' ? 'success' : 'error'} className="rounded-full">
-          {status === 'active' ? 'Đã kích hoạt' : 'Chưa kích hoạt'}
-        </Tag>
-      ),
-    },
-    {
-      title: '',
-      key: 'actions',
-      render: () => (
-        <Space>
-          <Button 
-            type="text" 
-            icon={<EditOutlined />}
-            className="text-blue-500 hover:text-blue-600"
-          />
-          <Button 
-            type="text" 
-            icon={<DeleteOutlined />}
-            className="text-red-500 hover:text-red-600"
-          />
-        </Space>
-      ),
-    },
-  ];
+  const handleEdit = (category: Category) => {
+    console.log('Edit category:', category);
+  };
+
+  const handleDelete = (key: string) => {
+    console.log('Delete category:', key);
+  };
 
   return (
     <div className="space-y-4">
@@ -90,29 +33,41 @@ const BookCategories: React.FC = () => {
         </Button>
       </div>
 
-      <Card>
-        <div className="mb-4">
-          <Input
-            placeholder="Tìm kiếm danh mục"
-            prefix={<SearchOutlined className="text-gray-400" />}
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            className="max-w-md"
+      <div className="grid grid-cols-2 gap-6">
+        <Card>
+          <div className="mb-4">
+            <Input
+              placeholder="Tìm kiếm danh mục"
+              prefix={<SearchOutlined className="text-gray-400" />}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              className="max-w-md"
+            />
+          </div>
+          
+          <CategoryTree
+            data={categories}
+            onSelect={setSelectedCategory}
+            onDrop={handleDrop}
           />
-        </div>
+        </Card>
 
-        <Table
-          columns={columns}
-          dataSource={mockCategories}
-          pagination={{
-            total: mockCategories.length,
-            pageSize: 10,
-            showSizeChanger: true,
-            showTotal: (total) => `${total} mục`,
-          }}
-          className="ant-table-striped"
+        <CategoryDetails
+          category={selectedCategory}
+          onClose={() => setSelectedCategory(null)}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
         />
-      </Card>
+      </div>
+
+      <style>{`
+        .draggable-tree .ant-tree-node-content-wrapper {
+          flex: 1;
+        }
+        .draggable-tree .ant-tree-treenode {
+          padding: 2px 0;
+        }
+      `}</style>
     </div>
   );
 };
