@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, Tag, Space, Button, Tooltip } from 'antd';
 import { PrinterOutlined, EditOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { BookData } from '../types';
+import BookPrintModal from './BookPrintModal';
 
 const BookTable: React.FC<{ data: BookData[] }> = ({ data }) => {
+  const [printModalOpen, setPrintModalOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState<BookData | null>(null);
+
+  const handlePrint = (book: BookData) => {
+    setSelectedBook(book);
+    setPrintModalOpen(true);
+  };
+
+  const handlePrintConfirm = (quantity: number) => {
+    console.log('Printing', quantity, 'copies of', selectedBook?.title);
+    setPrintModalOpen(false);
+    setSelectedBook(null);
+  };
+
   const columns: ColumnsType<BookData> = [
     {
       title: 'Ảnh bìa',
@@ -73,10 +88,14 @@ const BookTable: React.FC<{ data: BookData[] }> = ({ data }) => {
       title: '',
       key: 'actions',
       width: 120,
-      render: () => (
+      render: (_, record) => (
         <Space>
           <Tooltip title="In">
-            <Button type="text" icon={<PrinterOutlined />} />
+            <Button 
+              type="text" 
+              icon={<PrinterOutlined />} 
+              onClick={() => handlePrint(record)}
+            />
           </Tooltip>
           <Tooltip title="Chỉnh sửa">
             <Button type="text" icon={<EditOutlined />} />
@@ -87,17 +106,33 @@ const BookTable: React.FC<{ data: BookData[] }> = ({ data }) => {
   ];
 
   return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      pagination={{
-        total: data.length,
-        pageSize: 10,
-        showSizeChanger: true,
-        showTotal: (total) => `${total} items`,
-      }}
-      className="ant-table-striped"
-    />
+    <>
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          total: data.length,
+          pageSize: 10,
+          showSizeChanger: true,
+          showTotal: (total) => `${total} items`,
+        }}
+        className="ant-table-striped"
+      />
+
+      {selectedBook && (
+        <BookPrintModal
+          open={printModalOpen}
+          onClose={() => {
+            setPrintModalOpen(false);
+            setSelectedBook(null);
+          }}
+          onConfirm={handlePrintConfirm}
+          bookTitle={selectedBook.title}
+          publishDate={selectedBook.updatedAt}
+          currentQuantity={selectedBook.totalPublished}
+        />
+      )}
+    </>
   );
 };
 
