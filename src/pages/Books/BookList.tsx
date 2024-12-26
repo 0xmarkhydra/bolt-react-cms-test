@@ -2,17 +2,32 @@ import React, { useState } from 'react';
 import BookListHeader from './components/BookListHeader';
 import BookSearch from './components/BookSearch';
 import BookTable from './components/BookTable';
+import BookFormDrawer from './components/BookForm';
 import { mockBooks } from './data/mockData';
+import type { BookFormValues } from './components/BookForm/types';
 
 const BookList: React.FC = () => {
   const [searchText, setSearchText] = useState('');
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [editingBook, setEditingBook] = useState<any>(null);
 
   const handleRefresh = () => {
     // Implement refresh logic
   };
 
   const handleAddNew = () => {
-    // Implement add new book logic
+    setEditingBook(null);
+    setIsDrawerOpen(true);
+  };
+
+  const handleEditBook = (book: any) => {
+    setEditingBook(book);
+    setIsDrawerOpen(true);
+  };
+
+  const handleDrawerSubmit = (values: BookFormValues) => {
+    console.log('Form submitted:', values);
+    setIsDrawerOpen(false);
   };
 
   return (
@@ -28,8 +43,19 @@ const BookList: React.FC = () => {
           value={searchText}
           onChange={setSearchText}
         />
-        <BookTable data={mockBooks} />
+        <BookTable 
+          data={mockBooks}
+          onEdit={handleEditBook}
+        />
       </div>
+
+      <BookFormDrawer
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        onSubmit={handleDrawerSubmit}
+        initialValues={editingBook}
+        title={editingBook ? 'Sửa thông tin sách' : 'Thêm sách mới'}
+      />
     </div>
   );
 };

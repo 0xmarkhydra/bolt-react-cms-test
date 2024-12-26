@@ -5,7 +5,12 @@ import type { ColumnsType } from 'antd/es/table';
 import type { BookData } from '../types';
 import BookPrintDrawer from './BookPrintDrawer';
 
-const BookTable: React.FC<{ data: BookData[] }> = ({ data }) => {
+interface BookTableProps {
+  data: BookData[];
+  onEdit: (book: BookData) => void;
+}
+
+const BookTable: React.FC<BookTableProps> = ({ data, onEdit }) => {
   const [printDrawerOpen, setPrintDrawerOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<BookData | null>(null);
 
@@ -98,7 +103,11 @@ const BookTable: React.FC<{ data: BookData[] }> = ({ data }) => {
             />
           </Tooltip>
           <Tooltip title="Chỉnh sửa">
-            <Button type="text" icon={<EditOutlined />} />
+            <Button 
+              type="text" 
+              icon={<EditOutlined />} 
+              onClick={() => onEdit(record)}
+            />
           </Tooltip>
         </Space>
       ),
