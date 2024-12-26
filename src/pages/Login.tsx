@@ -69,7 +69,7 @@ const Login: React.FC = () => {
       <Card className="w-full max-w-[400px]">
         <div className="text-center mb-8">
           <img
-            src="https://hsabook.vn/_next/image?url=%2Fimages%2Flogo.png&w=64&q=75"
+            src="/src/assets/images/logo.png"
             alt="HSAbook Logo"
             className="h-16 mx-auto mb-4"
           />

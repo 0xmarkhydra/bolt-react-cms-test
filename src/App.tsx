@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ConfigProvider, message } from 'antd';
 import AdminLayout from './components/AdminLayout';
 import { useIsMobile } from './hooks/useIsMobile';
