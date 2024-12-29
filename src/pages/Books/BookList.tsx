@@ -5,6 +5,7 @@ import BookSearch from './components/BookSearch';
 import BookTable from './components/BookTable';
 import BookFormDrawer from './components/BookForm';
 import BookPrintDrawer from './components/BookPrintDrawer';
+import BookOverviewDrawer from './components/BookOverviewDrawer';
 import DeleteBookModal from './components/DeleteBookModal';
 import { useBooks } from './hooks/useBooks';
 import { deleteBook } from '../../api/books';
@@ -14,6 +15,7 @@ import type { BookFormValues } from './components/BookForm/types';
 const BookList: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isPrintDrawerOpen, setIsPrintDrawerOpen] = useState(false);
+  const [isOverviewDrawerOpen, setIsOverviewDrawerOpen] = useState(false);
   const [editingBook, setEditingBook] = useState<Book | null>(null);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -46,6 +48,11 @@ const BookList: React.FC = () => {
   const handlePrintBook = (book: Book) => {
     setSelectedBook(book);
     setIsPrintDrawerOpen(true);
+  };
+
+  const handleViewOverview = (book: Book) => {
+    setSelectedBook(book);
+    setIsOverviewDrawerOpen(true);
   };
 
   const handlePrintConfirm = (quantity: number) => {
@@ -108,6 +115,7 @@ const BookList: React.FC = () => {
           onEdit={handleEditBook}
           onPrint={handlePrintBook}
           onDelete={handleDeleteBook}
+          onViewOverview={handleViewOverview}
         />
       </div>
 
@@ -120,17 +128,28 @@ const BookList: React.FC = () => {
       />
 
       {selectedBook && (
-        <BookPrintDrawer
-          open={isPrintDrawerOpen}
-          onClose={() => {
-            setIsPrintDrawerOpen(false);
-            setSelectedBook(null);
-          }}
-          onConfirm={handlePrintConfirm}
-          bookTitle={selectedBook.name}
-          publishDate={selectedBook.updated_at}
-          currentQuantity={selectedBook.quantity || 0}
-        />
+        <>
+          <BookPrintDrawer
+            open={isPrintDrawerOpen}
+            onClose={() => {
+              setIsPrintDrawerOpen(false);
+              setSelectedBook(null);
+            }}
+            onConfirm={handlePrintConfirm}
+            bookTitle={selectedBook.name}
+            publishDate={selectedBook.updated_at}
+            currentQuantity={selectedBook.quantity || 0}
+          />
+
+          <BookOverviewDrawer
+            book={selectedBook}
+            open={isOverviewDrawerOpen}
+            onClose={() => {
+              setIsOverviewDrawerOpen(false);
+              setSelectedBook(null);
+            }}
+          />
+        </>
       )}
 
       <DeleteBookModal

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Tag, Space, Button, Dropdown, Tooltip, message, Switch } from 'antd';
-import { MoreOutlined, PrinterOutlined, EditOutlined, DeleteOutlined, CopyOutlined } from '@ant-design/icons';
+import { MoreOutlined, PrinterOutlined, EditOutlined, DeleteOutlined, CopyOutlined, EyeOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { Book } from '../../../api/books/types';
 
@@ -10,6 +10,7 @@ interface BookTableProps {
   onEdit: (book: Book) => void;
   onPrint: (book: Book) => void;
   onDelete: (book: Book) => void;
+  onViewOverview: (book: Book) => void;
 }
 
 const BookTable: React.FC<BookTableProps> = ({
@@ -17,7 +18,8 @@ const BookTable: React.FC<BookTableProps> = ({
   loading,
   onEdit,
   onPrint,
-  onDelete
+  onDelete,
+  onViewOverview
 }) => {
   const handleCopyId = (id: number) => {
     navigator.clipboard.writeText(id.toString())
@@ -30,6 +32,12 @@ const BookTable: React.FC<BookTableProps> = ({
   };
 
   const getActionItems = (record: Book) => [
+    {
+      key: 'overview',
+      label: 'Xem tổng quan',
+      icon: <EyeOutlined />,
+      onClick: () => onViewOverview(record),
+    },
     {
       key: 'print',
       label: 'In',
