@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { Form } from 'antd';
 import type { BookFormValues } from './types';
 import { BookCover } from './BookCover';
@@ -10,12 +10,17 @@ interface BookFormProps {
   initialValues?: Partial<BookFormValues>;
 }
 
-const BookForm: React.FC<BookFormProps> = ({
+const BookForm = forwardRef<{ resetFields: () => void }, BookFormProps>(({
   onSubmit,
   initialValues
-}) => {
+}, ref) => {
   const [form] = Form.useForm();
   const { isSubmitting, handleSubmit } = useBookSubmit(onSubmit);
+
+  // Expose form methods to parent component
+  useImperativeHandle(ref, () => ({
+    resetFields: () => form.resetFields()
+  }));
 
   return (
     <Form
@@ -31,6 +36,8 @@ const BookForm: React.FC<BookFormProps> = ({
       </div>
     </Form>
   );
-};
+});
+
+BookForm.displayName = 'BookForm';
 
 export default BookForm;

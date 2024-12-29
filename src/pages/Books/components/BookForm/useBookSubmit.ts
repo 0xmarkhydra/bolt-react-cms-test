@@ -29,6 +29,7 @@ export const useBookSubmit = (onSuccess: (values: BookFormValues) => void) => {
         subject: values.subjects || '',
         authors: authorIds || '',
         tags: categoryIds || '',
+        expiration_date: values.expiration_date,
       };
 
       await createBook(bookData);

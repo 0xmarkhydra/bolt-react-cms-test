@@ -1,13 +1,12 @@
-import { UploadFile } from 'antd/es/upload/interface';
-
 export interface BookFormValues {
   title: string;
-  categories: string[];
-  subjects: string[];
-  authors: string[];
-  publisher: string;
+  categories?: string[];
+  subjects?: string;
+  authors?: string[];
+  publisher?: string;
   summary?: string;
-  cover?: UploadFile;
+  cover?: any;
+  expiration_date?: number;
 }
 
 export interface BookFormDrawerProps {

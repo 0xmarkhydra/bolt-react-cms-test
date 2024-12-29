@@ -10,12 +10,22 @@ const BookFormDrawer: React.FC<BookFormDrawerProps> = ({
   initialValues,
   title = 'Thêm sách mới'
 }) => {
+  // Create form ref to control form outside of BookForm component
+  const formRef = React.useRef<any>(null);
+
+  const handleClose = () => {
+    // Reset form before closing
+    formRef.current?.resetFields();
+    onClose();
+  };
+
   return (
     <Drawer
       title={title}
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       width={720}
+      destroyOnClose // Add this to ensure form state is destroyed when drawer closes
       styles={{
         body: {
           paddingBottom: 80,
@@ -23,9 +33,10 @@ const BookFormDrawer: React.FC<BookFormDrawerProps> = ({
       }}
     >
       <BookForm
+        ref={formRef}
         onSubmit={(values) => {
           onSubmit(values);
-          onClose();
+          handleClose();
         }}
         initialValues={initialValues}
       />

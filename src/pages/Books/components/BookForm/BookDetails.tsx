@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Select, Button, Spin } from 'antd';
+import { Form, Input, Select, Button, Spin, InputNumber } from 'antd';
 import { useBookFormData } from './useBookFormData';
 
 const { TextArea } = Input;
@@ -37,20 +37,19 @@ export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
         <Form.Item
           name="subjects"
           label={<span className="text-base">Môn học</span>}
-          rules={[{ required: true, message: 'Vui lòng chọn môn học!' }]}
         >
           <Select
             placeholder="Chọn môn học"
             options={subjectOptions}
             className="w-full"
             size="large"
+            allowClear
           />
         </Form.Item>
 
         <Form.Item
           name="authors"
           label={<span className="text-base">Tác giả</span>}
-          rules={[{ required: true, message: 'Vui lòng chọn ít nhất một tác giả!' }]}
         >
           <Select
             mode="multiple"
@@ -58,13 +57,13 @@ export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
             options={authors}
             className="w-full"
             size="large"
+            allowClear
           />
         </Form.Item>
 
         <Form.Item
           name="categories"
           label={<span className="text-base">Danh mục</span>}
-          rules={[{ required: true, message: 'Vui lòng chọn ít nhất một danh mục!' }]}
         >
           <Select
             mode="multiple"
@@ -72,6 +71,21 @@ export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
             options={categories}
             className="w-full"
             size="large"
+            allowClear
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="expiration_date"
+          label={<span className="text-base">Thời hạn sử dụng (tháng)</span>}
+          initialValue={12}
+        >
+          <InputNumber
+            min={1}
+            max={120}
+            placeholder="Nhập số tháng"
+            size="large"
+            className="w-full"
           />
         </Form.Item>
 
