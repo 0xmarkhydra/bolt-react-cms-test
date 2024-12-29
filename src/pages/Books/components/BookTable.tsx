@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Tag, Space, Button, Dropdown } from 'antd';
+import { Table, Tag, Space, Button, Dropdown, Tooltip } from 'antd';
 import { MoreOutlined, PrinterOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { Book } from '../../../api/books/types';
@@ -40,6 +40,40 @@ const BookTable: React.FC<BookTableProps> = ({
       onClick: () => onDelete(record),
     },
   ];
+
+  const renderCategories = (record: Book) => {
+    const tags = record.book_tags;
+    if (tags.length === 0) return '-';
+
+    // Show first 2 tags
+    const visibleTags = tags.slice(0, 2).map((tag) => (
+      <Tag key={tag.id} color="purple" className="rounded-full">
+        {tag.tag.name}
+      </Tag>
+    ));
+
+    // If there are more tags, show count
+    if (tags.length > 2) {
+      return (
+        <Tooltip 
+          title={
+            <div className="space-y-1">
+              {tags.map(tag => (
+                <div key={tag.id}>{tag.tag.name}</div>
+              ))}
+            </div>
+          }
+        >
+          <Space wrap>
+            {visibleTags}
+            <Tag className="rounded-full">+{tags.length - 2}</Tag>
+          </Space>
+        </Tooltip>
+      );
+    }
+
+    return <Space wrap>{visibleTags}</Space>;
+  };
 
   const columns: ColumnsType<Book> = [
     {
@@ -102,15 +136,7 @@ const BookTable: React.FC<BookTableProps> = ({
       title: 'Danh mục',
       key: 'categories',
       width: 200,
-      render: (_, record) => (
-        <Space wrap>
-          {record.book_tags.map((tag) => (
-            <Tag key={tag.id} color="purple" className="rounded-full">
-              {tag.tag.name}
-            </Tag>
-          ))}
-        </Space>
-      ),
+      render: renderCategories,
     },
     {
       title: 'Tác giả',
