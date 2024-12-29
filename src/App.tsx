@@ -7,6 +7,7 @@ import MobileWarning from './components/MobileWarning';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
 import { useAuthStore } from './store/authStore';
+import CONFIG_APP from './utils/config';
 
 function App() {
   const isMobile = useIsMobile();
@@ -16,7 +17,7 @@ function App() {
     const checkAuth = async () => {
       if (accessToken) {
         try {
-          const response = await fetch('https://api.hsabook.vn/users/info', {
+          const response = await fetch(CONFIG_APP + '/users/info', {
             headers: {
               'Authorization': `Bearer ${accessToken}`
             }

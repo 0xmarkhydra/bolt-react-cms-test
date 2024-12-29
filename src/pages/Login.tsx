@@ -3,6 +3,7 @@ import { Form, Input, Button, Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
+import CONFIG_APP from '../utils/config';
 
 interface LoginForm {
   username: string;
@@ -18,7 +19,7 @@ const Login: React.FC = () => {
     const checkAuthStatus = async () => {
       if (accessToken) {
         try {
-          const response = await fetch('https://api.hsabook.vn/users/info', {
+          const response = await fetch(CONFIG_APP.API_ENDPOINT + '/users/info', {
             headers: {
               'Authorization': `Bearer ${accessToken}`,
               'accept': '*/*'
