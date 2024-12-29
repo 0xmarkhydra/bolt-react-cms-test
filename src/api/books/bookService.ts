@@ -21,3 +21,10 @@ export const createBook = async (payload: CreateBookPayload): Promise<any> => {
   
   return result.data;
 };
+
+export const deleteBook = async (id: string): Promise<boolean> => {
+  const result = await api(`/books/${id}`, {
+    method: 'DELETE',
+  });
+  return result.data;
+};

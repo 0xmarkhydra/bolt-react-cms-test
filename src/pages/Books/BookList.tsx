@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { message } from 'antd';
 import BookListHeader from './components/BookListHeader';
 import BookSearch from './components/BookSearch';
 import BookTable from './components/BookTable';
 import BookFormDrawer from './components/BookForm';
 import BookPrintDrawer from './components/BookPrintDrawer';
+import DeleteBookModal from './components/DeleteBookModal';
 import { useBooks } from './hooks/useBooks';
+import { deleteBook } from '../../api/books/bookService';
 import type { Book } from '../../api/books/types';
 import type { BookFormValues } from './components/BookForm/types';
 
@@ -13,7 +16,9 @@ const BookList: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isPrintDrawerOpen, setPrintDrawerOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const filteredBooks = books.filter(book => 
     book.name.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -33,6 +38,29 @@ const BookList: React.FC = () => {
   const handlePrintBook = (book: Book) => {
     setSelectedBook(book);
     setPrintDrawerOpen(true);
+  };
+
+  const handleDeleteBook = (book: Book) => {
+    setSelectedBook(book);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!selectedBook) return;
+
+    try {
+      setIsDeleting(true);
+      await deleteBook(selectedBook.id);
+      message.success('Xóa sách thành công');
+      setIsDeleteModalOpen(false);
+      setSelectedBook(null);
+      refetch();
+    } catch (error) {
+      console.error('Error deleting book:', error);
+      message.error('Có lỗi xảy ra khi xóa sách');
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const handleDrawerSubmit = async (values: BookFormValues) => {
@@ -68,6 +96,7 @@ const BookList: React.FC = () => {
           loading={loading}
           onEdit={handleEditBook}
           onPrint={handlePrintBook}
+          onDelete={handleDeleteBook}
         />
       </div>
 
@@ -80,17 +109,30 @@ const BookList: React.FC = () => {
       />
 
       {selectedBook && (
-        <BookPrintDrawer
-          open={isPrintDrawerOpen}
-          onClose={() => {
-            setPrintDrawerOpen(false);
-            setSelectedBook(null);
-          }}
-          onConfirm={handlePrintConfirm}
-          bookTitle={selectedBook.name}
-          publishDate={selectedBook.updated_at}
-          currentQuantity={selectedBook.quantity}
-        />
+        <>
+          <BookPrintDrawer
+            open={isPrintDrawerOpen}
+            onClose={() => {
+              setPrintDrawerOpen(false);
+              setSelectedBook(null);
+            }}
+            onConfirm={handlePrintConfirm}
+            bookTitle={selectedBook.name}
+            publishDate={selectedBook.updated_at}
+            currentQuantity={selectedBook.quantity}
+          />
+
+          <DeleteBookModal
+            book={selectedBook}
+            open={isDeleteModalOpen}
+            loading={isDeleting}
+            onCancel={() => {
+              setIsDeleteModalOpen(false);
+              setSelectedBook(null);
+            }}
+            onConfirm={handleDeleteConfirm}
+          />
+        </>
       )}
     </div>
   );
