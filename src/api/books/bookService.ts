@@ -6,8 +6,13 @@ export const getBooks = async (params: GetBooksParams = {}): Promise<BooksRespon
     take: (params.take || 100).toString(),
     page: (params.page || 1).toString(),
     sort_field: params.sort_field || 'created_at',
-    sort_type: params.sort_type || 'DESC'
+    sort_type: params.sort_type || 'DESC',
   });
+
+  // Only add search param if it exists and is not empty
+  if (params.search?.trim()) {
+    queryParams.append('search', params.search.trim());
+  }
 
   const result = await api(`/books?${queryParams}`);
   return result;

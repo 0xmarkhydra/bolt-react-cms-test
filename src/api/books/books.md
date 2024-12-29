@@ -10,7 +10,8 @@ curl -X 'POST' \
   "expiration_date": 0,
   "description": "string",
   "publishing_house": "string",
-  "subject": "Toán"
+  "subject": "Toán",
+  "is_public": true,
 }'
 
 // response

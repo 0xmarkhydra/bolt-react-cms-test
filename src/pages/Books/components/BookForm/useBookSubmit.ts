@@ -29,15 +29,17 @@ export const useBookSubmit = (onSuccess: (values: BookFormValues) => void) => {
         subject: values.subjects || '',
         authors: authorIds || '',
         tags: categoryIds || '',
-        expiration_date: values.expiration_date,
+        expiration_date: values.expiration_date || 12,
+        is_public: values.is_public || false,
       };
 
       await createBook(bookData);
       message.success('Sách đã được tạo thành công');
       onSuccess(values);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating book:', error);
-      message.error('Có lỗi xảy ra khi tạo sách');
+      message.error(error.message || 'Có lỗi xảy ra khi tạo sách');
+      throw error; // Re-throw to let parent component handle the error
     } finally {
       setIsSubmitting(false);
     }

@@ -6,12 +6,11 @@ import BookTable from './components/BookTable';
 import BookFormDrawer from './components/BookForm';
 import DeleteBookModal from './components/DeleteBookModal';
 import { useBooks } from './hooks/useBooks';
-import { deleteBook, createBook } from '../../api/books';
+import { deleteBook } from '../../api/books';
 import type { Book } from '../../api/books/types';
 import type { BookFormValues } from './components/BookForm/types';
 
 const BookList: React.FC = () => {
-  const [searchText, setSearchText] = useState('');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [editingBook, setEditingBook] = useState<Book | null>(null);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
@@ -19,7 +18,14 @@ const BookList: React.FC = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
-  const { books, loading, totalBooks, refetch } = useBooks();
+  const { 
+    books, 
+    loading, 
+    totalBooks, 
+    searchText,
+    setSearchText,
+    refetch 
+  } = useBooks();
 
   const handleRefresh = () => {
     refetch();
@@ -60,14 +66,13 @@ const BookList: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (values: BookFormValues) => {
+  const handleDrawerSubmit = async (values: BookFormValues) => {
     try {
-      await createBook(values);
-      message.success('Tạo sách thành công');
       setIsDrawerOpen(false);
-      refetch();
-    } catch (error: any) {
-      message.error(error.message || 'Có lỗi xảy ra khi tạo sách');
+      await refetch();
+    } catch (error) {
+      // Error is already handled in useBookSubmit
+      setIsDrawerOpen(true);
     }
   };
 
@@ -95,7 +100,7 @@ const BookList: React.FC = () => {
       <BookFormDrawer
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        onSubmit={handleSubmit}
+        onSubmit={handleDrawerSubmit}
         initialValues={editingBook}
         title={editingBook ? 'Sửa thông tin sách' : 'Thêm sách mới'}
       />

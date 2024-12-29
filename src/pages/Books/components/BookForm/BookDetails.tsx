@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Select, Button, Spin, InputNumber } from 'antd';
+import { Form, Input, Select, Button, Spin, InputNumber, Switch } from 'antd';
 import { useBookFormData } from './useBookFormData';
 
 const { TextArea } = Input;
@@ -112,6 +112,15 @@ export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
             size="large"
             className="py-2"
           />
+        </Form.Item>
+
+        <Form.Item
+          name="is_public"
+          label={<span className="text-base">Công khai</span>}
+          valuePropName="checked"
+          initialValue={false}
+        >
+          <Switch />
         </Form.Item>
 
         <Form.Item className="mb-0">
