@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name: "vite-app",
+    name: "cms.hsabook.vn",
     script: "npm",
     args: "run start",
     env: {
