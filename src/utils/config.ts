@@ -1,5 +1,4 @@
-// @ts-ignore
-const API_ENDPOINT = process.env.API_ENDPOINT || 'https://api.hsabook.vn';
+const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT || 'https://api.hsabook.vn';
 
 const CONFIG_APP = {
   API_ENDPOINT: API_ENDPOINT,
