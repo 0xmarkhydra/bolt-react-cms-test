@@ -4,6 +4,13 @@ interface ApiOptions extends RequestInit {
   requiresAuth?: boolean;
 }
 
+interface ApiError {
+  timestamp: string;
+  error: string;
+  message: string;
+  statusCode: number;
+}
+
 export const api = async (endpoint: string, options: ApiOptions = {}) => {
   const { accessToken } = useAuthStore.getState();
   const { requiresAuth = true, headers = {}, ...rest } = options;
@@ -30,8 +37,9 @@ export const api = async (endpoint: string, options: ApiOptions = {}) => {
 
   const data = await response.json();
 
-  if (data.status_code !== 200) {
-    throw new Error(data.messages || 'Something went wrong');
+  if (!response.ok) {
+    const error = data as ApiError;
+    throw new Error(error.message || 'Có lỗi xảy ra');
   }
 
   return data;

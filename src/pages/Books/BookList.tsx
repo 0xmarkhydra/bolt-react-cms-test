@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { message } from 'antd';
 import BookListHeader from './components/BookListHeader';
 import BookSearch from './components/BookSearch';
 import BookTable from './components/BookTable';
 import BookFormDrawer from './components/BookForm';
 import DeleteBookModal from './components/DeleteBookModal';
 import { useBooks } from './hooks/useBooks';
+import { deleteBook, createBook } from '../../api/books';
 import type { Book } from '../../api/books/types';
+import type { BookFormValues } from './components/BookForm/types';
 
 const BookList: React.FC = () => {
   const [searchText, setSearchText] = useState('');
@@ -32,10 +35,6 @@ const BookList: React.FC = () => {
     setIsDrawerOpen(true);
   };
 
-  const handlePrintBook = (book: Book) => {
-    console.log('Print book:', book);
-  };
-
   const handleDeleteBook = (book: Book) => {
     setSelectedBook(book);
     setIsDeleteModalOpen(true);
@@ -49,32 +48,26 @@ const BookList: React.FC = () => {
       setIsDeleting(true);
       setDeleteError(null);
       
-      const result = await deleteBook(selectedBook.id);
-      
-      if (!result.success) {
-        setDeleteError(result.message);
-        return;
-      }
-
+      await deleteBook(selectedBook.id);
       message.success('Xóa sách thành công');
       setIsDeleteModalOpen(false);
       setSelectedBook(null);
       refetch();
-    } catch (error) {
-      setDeleteError('Có lỗi xảy ra khi xóa sách');
+    } catch (error: any) {
+      setDeleteError(error.message);
     } finally {
       setIsDeleting(false);
     }
   };
 
-  const handleDrawerSubmit = async (values: BookFormValues) => {
+  const handleSubmit = async (values: BookFormValues) => {
     try {
       await createBook(values);
       message.success('Tạo sách thành công');
       setIsDrawerOpen(false);
       refetch();
-    } catch (error) {
-      message.error('Có lỗi xảy ra khi tạo sách');
+    } catch (error: any) {
+      message.error(error.message || 'Có lỗi xảy ra khi tạo sách');
     }
   };
 
@@ -95,7 +88,6 @@ const BookList: React.FC = () => {
           data={books}
           loading={loading}
           onEdit={handleEditBook}
-          onPrint={handlePrintBook}
           onDelete={handleDeleteBook}
         />
       </div>
@@ -103,7 +95,7 @@ const BookList: React.FC = () => {
       <BookFormDrawer
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        onSubmit={handleDrawerSubmit}
+        onSubmit={handleSubmit}
         initialValues={editingBook}
         title={editingBook ? 'Sửa thông tin sách' : 'Thêm sách mới'}
       />
