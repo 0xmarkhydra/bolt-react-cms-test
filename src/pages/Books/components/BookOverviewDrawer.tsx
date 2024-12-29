@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer, Descriptions, Tag, Space } from 'antd';
+import { Drawer, Descriptions, Tag, Space, Image } from 'antd';
 import type { Book } from '../../../api/books/types';
 
 interface BookOverviewDrawerProps {
@@ -26,14 +26,20 @@ const BookOverviewDrawer: React.FC<BookOverviewDrawerProps> = ({
         {/* Book Cover and Basic Info */}
         <div className="flex gap-6">
           {book.avatar ? (
-            <img
-              src={book.avatar}
-              alt={book.name}
-              className="w-[200px] h-[266px] object-cover rounded-lg shadow-md"
-            />
+            <div className="w-[200px] h-[266px] cursor-pointer">
+              <Image
+                src={book.avatar}
+                alt={book.name}
+                className="w-full h-full object-cover rounded-lg shadow-md"
+                preview={{
+                  mask: 'Xem ảnh',
+                  maskClassName: 'rounded-lg',
+                }}
+              />
+            </div>
           ) : (
             <div className="w-[200px] h-[266px] bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
-              No image
+              <div className="text-sm text-center">No image</div>
             </div>
           )}
           
