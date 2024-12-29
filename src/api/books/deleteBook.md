@@ -8,3 +8,11 @@ curl -X 'DELETE' \
   "data": true,
   "status_code": 200
 }
+
+// respone error 
+{
+  "timestamp": "2024-12-29T12:22:41.751Z",
+  "error": "Bad Request",
+  "message": "Không thể xóa sách đã xuất bản",
+  "statusCode": 400
+}

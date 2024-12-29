@@ -22,9 +22,18 @@ export const createBook = async (payload: CreateBookPayload): Promise<any> => {
   return result.data;
 };
 
-export const deleteBook = async (id: string): Promise<boolean> => {
-  const result = await api(`/books/${id}`, {
-    method: 'DELETE',
-  });
-  return result.data;
+export const deleteBook = async (id: string): Promise<{ success: boolean; message?: string }> => {
+  try {
+    await api(`/books/${id}`, {
+      method: 'DELETE',
+    });
+    return { success: true };
+  } catch (error: any) {
+    // Extract error message from the API response
+    const errorMessage = error?.data?.message || 'Có lỗi xảy ra khi xóa sách';
+    return { 
+      success: false, 
+      message: errorMessage
+    };
+  }
 };
