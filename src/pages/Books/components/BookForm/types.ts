@@ -7,13 +7,14 @@ export interface BookFormValues {
   summary?: string;
   cover?: any;
   expiration_date?: number;
+  is_public?: boolean;
 }
 
 export interface BookFormDrawerProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (values: BookFormValues) => void;
-  initialValues?: Partial<BookFormValues>;
+  initialValues?: any;
   title?: string;
 }
 

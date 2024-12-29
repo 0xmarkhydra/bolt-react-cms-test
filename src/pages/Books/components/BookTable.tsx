@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Tag, Space, Button, Dropdown, Tooltip, message } from 'antd';
+import { Table, Tag, Space, Button, Dropdown, Tooltip, message, Switch } from 'antd';
 import { MoreOutlined, PrinterOutlined, EditOutlined, DeleteOutlined, CopyOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { Book } from '../../../api/books/types';
@@ -105,6 +105,19 @@ const BookTable: React.FC<BookTableProps> = ({
         <Tag color={active ? 'success' : 'error'} className="rounded-full">
           {active ? 'Đã kích hoạt' : 'Chưa kích hoạt'}
         </Tag>
+      ),
+    },
+    {
+      title: 'Công khai',
+      dataIndex: 'is_public',
+      key: 'is_public',
+      width: 100,
+      render: (isPublic) => (
+        <Switch 
+          checked={isPublic} 
+          disabled 
+          size="small"
+        />
       ),
     },
     {

@@ -18,357 +18,23 @@ curl -X 'POST' \
 {
   "messages": "Success",
   "data": {
-    "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-    "avatar": "Test 1",
-    "name": "Tesst 2",
-    "name_search": "Tesst 2",
-    "description": "string",
-    "expiration_date": 0,
-    "code_id": 71394,
-    "quantity": null,
-    "active": false,
-    "publishing_house": null,
-    "subject": null,
-    "is_file": false,
-    "file_download": null,
-    "xlsx_files": [],
-    "id": "b458992e-7d3a-4d25-a3c3-91df6b3c5501",
-    "created_at": "2024-12-29T08:01:34.584Z",
-    "updated_at": "2024-12-29T08:01:34.584Z",
-    "deleted_at": null
-  },
-  "status_code": 200
-}
-__________________________________________________________________________________________________________________________________
-
-curl -X 'GET' \
-  'https://api.hsabook.vn/books?take=100&page=1&sort_field=created_at&sort_type=DESC' \
-  -H 'accept: */*'
-
-{
-  "messages": "Success",
-  "data": {
     "pagination": {
       "current_page": 1,
-      "total_pages": 2,
+      "total_pages": 1,
       "take": 10,
-      "total": 13
+      "total": 8
     },
     "data": [
       {
-        "id": "c9cb2f60-9aa3-49f5-94f4-770b0fc0776f",
-        "created_at": "2024-12-29T11:55:22.489Z",
-        "updated_at": "2024-12-29T11:55:22.489Z",
+        "id": "dc3a3485-29a5-4692-a415-87c9d2452160",
+        "created_at": "2024-12-29T13:05:10.187Z",
+        "updated_at": "2024-12-29T13:05:10.187Z",
         "deleted_at": null,
-        "code_id": 220897,
-        "description": "222",
+        "code_id": 859883,
+        "description": "1111",
         "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-        "name": "Tesst ",
-        "name_search": "Tesst ",
-        "avatar": "https://api.hsabook.vn/uploads/2024-12-29/1735473322431.jpg",
-        "quantity": 0,
-        "expiration_date": 12,
-        "active": false,
-        "publishing_house": null,
-        "subject": null,
-        "is_file": false,
-        "file_download": null,
-        "xlsx_files": [],
-        "book_tags": [
-          {
-            "id": "50abc3e9-1653-4ff2-9613-1e53781d0034",
-            "created_at": "2024-12-29T11:55:22.517Z",
-            "updated_at": "2024-12-29T11:55:22.517Z",
-            "deleted_at": null,
-            "book_id": "c9cb2f60-9aa3-49f5-94f4-770b0fc0776f",
-            "tag_id": "1fb337a2-fec8-49fd-a3dc-c3e7f7722123",
-            "user_id": null,
-            "tag": {
-              "id": "1fb337a2-fec8-49fd-a3dc-c3e7f7722123",
-              "created_at": "2024-11-24T11:03:35.200Z",
-              "updated_at": "2024-11-24T11:03:35.200Z",
-              "deleted_at": null,
-              "description": "IT Books",
-              "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-              "updated_by": null,
-              "deleted_by": null,
-              "name": "IT",
-              "name_search": "IT",
-              "avatar": null,
-              "parent_id": null,
-              "_constructor-name_": "CategoryEntity"
-            },
-            "_constructor-name_": "BookTagsEntity"
-          }
-        ],
-        "authors": [
-          {
-            "id": "dc78a86e-7aac-4547-b837-fd11ba00474f",
-            "created_at": "2024-12-29T11:55:22.517Z",
-            "updated_at": "2024-12-29T11:55:22.517Z",
-            "deleted_at": null,
-            "book_id": "c9cb2f60-9aa3-49f5-94f4-770b0fc0776f",
-            "user_id": "3ead6a72-8afa-4d36-9155-efb0470db5ba",
-            "user": {
-              "id": "3ead6a72-8afa-4d36-9155-efb0470db5ba",
-              "created_at": "2024-11-24T15:48:26.720Z",
-              "updated_at": "2024-11-24T15:49:02.643Z",
-              "deleted_at": null,
-              "hash_password": "6939b06f19351ae65b534108577cffdf",
-              "username": "Test1",
-              "email": "thuy210499@gmail.com",
-              "phone_number": "0374357435",
-              "full_name": "Lê Thị Thủy",
-              "avatar": "https://api.hsabook.vn/uploads/2024-11-24/1732463340578.png",
-              "description": null,
-              "role": "teacher",
-              "rank": null,
-              "status": "active",
-              "book_visits": [],
-              "_constructor-name_": "UserEntity"
-            },
-            "_constructor-name_": "AuthorEntity"
-          }
-        ]
-      },
-      {
-        "id": "0796469b-a285-4d57-8cca-5e32dbd462c8",
-        "created_at": "2024-12-29T11:49:24.667Z",
-        "updated_at": "2024-12-29T11:49:24.667Z",
-        "deleted_at": null,
-        "code_id": 103875,
-        "description": "Toán ",
-        "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-        "name": "HSA 234",
-        "name_search": "HSA 234",
-        "avatar": "https://api.hsabook.vn/uploads/2024-12-29/1735472964624.jpg",
-        "quantity": 0,
-        "expiration_date": 12,
-        "active": false,
-        "publishing_house": null,
-        "subject": null,
-        "is_file": false,
-        "file_download": null,
-        "xlsx_files": [],
-        "book_tags": [
-          {
-            "id": "87ca4919-31f9-41e9-b8a2-5252ab00c401",
-            "created_at": "2024-12-29T11:49:24.712Z",
-            "updated_at": "2024-12-29T11:49:24.712Z",
-            "deleted_at": null,
-            "book_id": "0796469b-a285-4d57-8cca-5e32dbd462c8",
-            "tag_id": "1fb337a2-fec8-49fd-a3dc-c3e7f7722123",
-            "user_id": null,
-            "tag": {
-              "id": "1fb337a2-fec8-49fd-a3dc-c3e7f7722123",
-              "created_at": "2024-11-24T11:03:35.200Z",
-              "updated_at": "2024-11-24T11:03:35.200Z",
-              "deleted_at": null,
-              "description": "IT Books",
-              "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-              "updated_by": null,
-              "deleted_by": null,
-              "name": "IT",
-              "name_search": "IT",
-              "avatar": null,
-              "parent_id": null,
-              "_constructor-name_": "CategoryEntity"
-            },
-            "_constructor-name_": "BookTagsEntity"
-          }
-        ],
-        "authors": [
-          {
-            "id": "1d8715ff-0401-4554-b240-e765ed6bf821",
-            "created_at": "2024-12-29T11:49:24.712Z",
-            "updated_at": "2024-12-29T11:49:24.712Z",
-            "deleted_at": null,
-            "book_id": "0796469b-a285-4d57-8cca-5e32dbd462c8",
-            "user_id": "3ead6a72-8afa-4d36-9155-efb0470db5ba",
-            "user": {
-              "id": "3ead6a72-8afa-4d36-9155-efb0470db5ba",
-              "created_at": "2024-11-24T15:48:26.720Z",
-              "updated_at": "2024-11-24T15:49:02.643Z",
-              "deleted_at": null,
-              "hash_password": "6939b06f19351ae65b534108577cffdf",
-              "username": "Test1",
-              "email": "thuy210499@gmail.com",
-              "phone_number": "0374357435",
-              "full_name": "Lê Thị Thủy",
-              "avatar": "https://api.hsabook.vn/uploads/2024-11-24/1732463340578.png",
-              "description": null,
-              "role": "teacher",
-              "rank": null,
-              "status": "active",
-              "book_visits": [],
-              "_constructor-name_": "UserEntity"
-            },
-            "_constructor-name_": "AuthorEntity"
-          }
-        ]
-      },
-      {
-        "id": "7db2bf49-b432-4ad8-bce3-c89d560adae7",
-        "created_at": "2024-12-29T11:47:13.700Z",
-        "updated_at": "2024-12-29T11:47:13.700Z",
-        "deleted_at": null,
-        "code_id": 720701,
-        "description": "1",
-        "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-        "name": "Toán ",
-        "name_search": "Toan ",
-        "avatar": "https://api.hsabook.vn/uploads/2024-12-29/1735472833626.jpg",
-        "quantity": 0,
-        "expiration_date": 12,
-        "active": false,
-        "publishing_house": null,
-        "subject": null,
-        "is_file": false,
-        "file_download": null,
-        "xlsx_files": [],
-        "book_tags": [
-          {
-            "id": "f81e13be-bbbd-446f-9b66-e162f80da700",
-            "created_at": "2024-12-29T11:47:13.720Z",
-            "updated_at": "2024-12-29T11:47:13.720Z",
-            "deleted_at": null,
-            "book_id": "7db2bf49-b432-4ad8-bce3-c89d560adae7",
-            "tag_id": "1fb337a2-fec8-49fd-a3dc-c3e7f7722123",
-            "user_id": null,
-            "tag": {
-              "id": "1fb337a2-fec8-49fd-a3dc-c3e7f7722123",
-              "created_at": "2024-11-24T11:03:35.200Z",
-              "updated_at": "2024-11-24T11:03:35.200Z",
-              "deleted_at": null,
-              "description": "IT Books",
-              "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-              "updated_by": null,
-              "deleted_by": null,
-              "name": "IT",
-              "name_search": "IT",
-              "avatar": null,
-              "parent_id": null,
-              "_constructor-name_": "CategoryEntity"
-            },
-            "_constructor-name_": "BookTagsEntity"
-          }
-        ],
-        "authors": [
-          {
-            "id": "757ec243-dd6e-4fc4-acf3-d4e8060b087c",
-            "created_at": "2024-12-29T11:47:13.720Z",
-            "updated_at": "2024-12-29T11:47:13.720Z",
-            "deleted_at": null,
-            "book_id": "7db2bf49-b432-4ad8-bce3-c89d560adae7",
-            "user_id": "19dd3d86-6db4-4288-b513-09c7be9a9379",
-            "user": {
-              "id": "19dd3d86-6db4-4288-b513-09c7be9a9379",
-              "created_at": "2024-11-03T14:30:23.859Z",
-              "updated_at": "2024-11-03T14:30:23.859Z",
-              "deleted_at": null,
-              "hash_password": "e10adc3949ba59abbe56e057f20f883e",
-              "username": "teacher3",
-              "email": "teacher3@example.com",
-              "phone_number": "09904195113",
-              "full_name": "teacher3",
-              "avatar": null,
-              "description": null,
-              "role": "teacher",
-              "rank": null,
-              "status": "active",
-              "book_visits": [],
-              "_constructor-name_": "UserEntity"
-            },
-            "_constructor-name_": "AuthorEntity"
-          }
-        ]
-      },
-      {
-        "id": "c8231ec6-2300-4c4e-b3b2-2e3a8621ce90",
-        "created_at": "2024-12-29T11:45:14.355Z",
-        "updated_at": "2024-12-29T11:45:14.355Z",
-        "deleted_at": null,
-        "code_id": 572701,
-        "description": "111",
-        "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-        "name": "111",
-        "name_search": "111",
-        "avatar": "https://api.hsabook.vn/uploads/2024-12-29/1735472714218.jpg",
-        "quantity": 0,
-        "expiration_date": 12,
-        "active": false,
-        "publishing_house": null,
-        "subject": null,
-        "is_file": false,
-        "file_download": null,
-        "xlsx_files": [],
-        "book_tags": [
-          {
-            "id": "22fcd1ac-6d7a-4c13-b42c-7bc547925868",
-            "created_at": "2024-12-29T11:45:14.372Z",
-            "updated_at": "2024-12-29T11:45:14.372Z",
-            "deleted_at": null,
-            "book_id": "c8231ec6-2300-4c4e-b3b2-2e3a8621ce90",
-            "tag_id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
-            "user_id": null,
-            "tag": {
-              "id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
-              "created_at": "2024-11-23T18:09:36.510Z",
-              "updated_at": "2024-11-23T18:09:36.510Z",
-              "deleted_at": null,
-              "description": "xzxxxx",
-              "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-              "updated_by": null,
-              "deleted_by": null,
-              "name": "category [Mong test nghiệm thu]",
-              "name_search": "category [Mong test nghiem thu]",
-              "avatar": null,
-              "parent_id": null,
-              "_constructor-name_": "CategoryEntity"
-            },
-            "_constructor-name_": "BookTagsEntity"
-          }
-        ],
-        "authors": [
-          {
-            "id": "86569ad1-099d-496e-a122-b2cf6c2aedf5",
-            "created_at": "2024-12-29T11:45:14.374Z",
-            "updated_at": "2024-12-29T11:45:14.374Z",
-            "deleted_at": null,
-            "book_id": "c8231ec6-2300-4c4e-b3b2-2e3a8621ce90",
-            "user_id": "19dd3d86-6db4-4288-b513-09c7be9a9379",
-            "user": {
-              "id": "19dd3d86-6db4-4288-b513-09c7be9a9379",
-              "created_at": "2024-11-03T14:30:23.859Z",
-              "updated_at": "2024-11-03T14:30:23.859Z",
-              "deleted_at": null,
-              "hash_password": "e10adc3949ba59abbe56e057f20f883e",
-              "username": "teacher3",
-              "email": "teacher3@example.com",
-              "phone_number": "09904195113",
-              "full_name": "teacher3",
-              "avatar": null,
-              "description": null,
-              "role": "teacher",
-              "rank": null,
-              "status": "active",
-              "book_visits": [],
-              "_constructor-name_": "UserEntity"
-            },
-            "_constructor-name_": "AuthorEntity"
-          }
-        ]
-      },
-      {
-        "id": "244157b0-b363-411b-b56d-60c8102f0e94",
-        "created_at": "2024-12-29T11:41:33.467Z",
-        "updated_at": "2024-12-29T11:41:33.467Z",
-        "deleted_at": null,
-        "code_id": 225677,
-        "description": "111",
-        "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-        "name": "mongker",
-        "name_search": "mongker",
+        "name": "Test ",
+        "name_search": "Test ",
         "avatar": "",
         "quantity": 0,
         "expiration_date": 12,
@@ -378,13 +44,14 @@ curl -X 'GET' \
         "is_file": false,
         "file_download": null,
         "xlsx_files": [],
+        "is_public": false,
         "book_tags": [
           {
-            "id": "d6569b25-bca1-4c2a-8d76-09a779a065d3",
-            "created_at": "2024-12-29T11:41:33.494Z",
-            "updated_at": "2024-12-29T11:41:33.494Z",
+            "id": "78d213b4-a1d5-4aff-b879-de76847f118a",
+            "created_at": "2024-12-29T13:05:10.204Z",
+            "updated_at": "2024-12-29T13:05:10.204Z",
             "deleted_at": null,
-            "book_id": "244157b0-b363-411b-b56d-60c8102f0e94",
+            "book_id": "dc3a3485-29a5-4692-a415-87c9d2452160",
             "tag_id": "1fb337a2-fec8-49fd-a3dc-c3e7f7722123",
             "user_id": null,
             "tag": {
@@ -403,52 +70,27 @@ curl -X 'GET' \
               "_constructor-name_": "CategoryEntity"
             },
             "_constructor-name_": "BookTagsEntity"
-          },
-          {
-            "id": "5b602092-9ec7-4934-a5d1-3e11ab846a49",
-            "created_at": "2024-12-29T11:41:33.494Z",
-            "updated_at": "2024-12-29T11:41:33.494Z",
-            "deleted_at": null,
-            "book_id": "244157b0-b363-411b-b56d-60c8102f0e94",
-            "tag_id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
-            "user_id": null,
-            "tag": {
-              "id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
-              "created_at": "2024-11-23T18:09:36.510Z",
-              "updated_at": "2024-11-23T18:09:36.510Z",
-              "deleted_at": null,
-              "description": "xzxxxx",
-              "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-              "updated_by": null,
-              "deleted_by": null,
-              "name": "category [Mong test nghiệm thu]",
-              "name_search": "category [Mong test nghiem thu]",
-              "avatar": null,
-              "parent_id": null,
-              "_constructor-name_": "CategoryEntity"
-            },
-            "_constructor-name_": "BookTagsEntity"
           }
         ],
         "authors": [
           {
-            "id": "47d93e29-ca2c-4cc4-9582-f6efc08cbe0b",
-            "created_at": "2024-12-29T11:41:33.506Z",
-            "updated_at": "2024-12-29T11:41:33.506Z",
+            "id": "4e8d29b5-96cb-4930-8b8b-6d94beaf4aea",
+            "created_at": "2024-12-29T13:05:10.204Z",
+            "updated_at": "2024-12-29T13:05:10.204Z",
             "deleted_at": null,
-            "book_id": "244157b0-b363-411b-b56d-60c8102f0e94",
-            "user_id": "19dd3d86-6db4-4288-b513-09c7be9a9379",
+            "book_id": "dc3a3485-29a5-4692-a415-87c9d2452160",
+            "user_id": "37940275-1853-4d04-affa-e9415d360a81",
             "user": {
-              "id": "19dd3d86-6db4-4288-b513-09c7be9a9379",
-              "created_at": "2024-11-03T14:30:23.859Z",
-              "updated_at": "2024-11-03T14:30:23.859Z",
+              "id": "37940275-1853-4d04-affa-e9415d360a81",
+              "created_at": "2024-11-23T16:40:56.307Z",
+              "updated_at": "2024-11-24T03:38:01.552Z",
               "deleted_at": null,
-              "hash_password": "e10adc3949ba59abbe56e057f20f883e",
-              "username": "teacher3",
-              "email": "teacher3@example.com",
-              "phone_number": "09904195113",
-              "full_name": "teacher3",
-              "avatar": null,
+              "hash_password": "c20ad4d76fe97759aa27a0c99bff6710",
+              "username": "2atccnode",
+              "email": "atccnode21@gmail.com",
+              "phone_number": "0234242233",
+              "full_name": "Testb213",
+              "avatar": "https://api.hsabook.vn/uploads/2024-11-24/1732381904855.png",
               "description": null,
               "role": "teacher",
               "rank": null,
@@ -459,28 +101,6 @@ curl -X 'GET' \
             "_constructor-name_": "AuthorEntity"
           }
         ]
-      },
-      {
-        "id": "b458992e-7d3a-4d25-a3c3-91df6b3c5501",
-        "created_at": "2024-12-29T08:01:34.584Z",
-        "updated_at": "2024-12-29T08:01:34.584Z",
-        "deleted_at": null,
-        "code_id": 71394,
-        "description": "string",
-        "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-        "name": "Tesst 2",
-        "name_search": "Tesst 2",
-        "avatar": "Test 1",
-        "quantity": 0,
-        "expiration_date": 0,
-        "active": false,
-        "publishing_house": null,
-        "subject": null,
-        "is_file": false,
-        "file_download": null,
-        "xlsx_files": [],
-        "book_tags": [],
-        "authors": []
       },
       {
         "id": "a3a4f63d-afb4-443c-9660-e6bfcb36d4ab",
@@ -509,6 +129,7 @@ curl -X 'GET' \
             "timestamp": 1734270670878
           }
         ],
+        "is_public": false,
         "book_tags": [
           {
             "id": "86ab20c4-9bc9-45f9-a4e6-a6d4022e3299",
@@ -740,6 +361,7 @@ curl -X 'GET' \
             "timestamp": 1733663424131
           }
         ],
+        "is_public": false,
         "book_tags": [
           {
             "id": "e0217d19-ba67-4843-863a-ba9c140d8356",
@@ -845,6 +467,7 @@ curl -X 'GET' \
             "timestamp": 1733602969041
           }
         ],
+        "is_public": false,
         "book_tags": [
           {
             "id": "5d34d7fc-eaef-4cf6-bd2b-24db9f1b5523",
@@ -929,7 +552,33 @@ curl -X 'GET' \
             "timestamp": 1733602983575
           }
         ],
+        "is_public": false,
         "book_tags": [
+          {
+            "id": "48dbc281-689c-4cb8-ab26-98a632066c72",
+            "created_at": "2024-11-24T16:09:41.437Z",
+            "updated_at": "2024-11-24T16:09:41.437Z",
+            "deleted_at": null,
+            "book_id": "e16938ba-f059-4ac4-8928-89eed724ff3a",
+            "tag_id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
+            "user_id": null,
+            "tag": {
+              "id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
+              "created_at": "2024-11-23T18:09:36.510Z",
+              "updated_at": "2024-11-23T18:09:36.510Z",
+              "deleted_at": null,
+              "description": "xzxxxx",
+              "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
+              "updated_by": null,
+              "deleted_by": null,
+              "name": "[Mong test nghiệm thu]",
+              "name_search": "category [Mong test nghiem thu]",
+              "avatar": null,
+              "parent_id": null,
+              "_constructor-name_": "CategoryEntity"
+            },
+            "_constructor-name_": "BookTagsEntity"
+          },
           {
             "id": "bf6dbb15-6a5d-43bf-8a49-5e1722f15b6d",
             "created_at": "2024-11-24T16:09:41.437Z",
@@ -949,31 +598,6 @@ curl -X 'GET' \
               "deleted_by": null,
               "name": "IT",
               "name_search": "IT",
-              "avatar": null,
-              "parent_id": null,
-              "_constructor-name_": "CategoryEntity"
-            },
-            "_constructor-name_": "BookTagsEntity"
-          },
-          {
-            "id": "48dbc281-689c-4cb8-ab26-98a632066c72",
-            "created_at": "2024-11-24T16:09:41.437Z",
-            "updated_at": "2024-11-24T16:09:41.437Z",
-            "deleted_at": null,
-            "book_id": "e16938ba-f059-4ac4-8928-89eed724ff3a",
-            "tag_id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
-            "user_id": null,
-            "tag": {
-              "id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
-              "created_at": "2024-11-23T18:09:36.510Z",
-              "updated_at": "2024-11-23T18:09:36.510Z",
-              "deleted_at": null,
-              "description": "xzxxxx",
-              "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
-              "updated_by": null,
-              "deleted_by": null,
-              "name": "category [Mong test nghiệm thu]",
-              "name_search": "category [Mong test nghiem thu]",
               "avatar": null,
               "parent_id": null,
               "_constructor-name_": "CategoryEntity"
@@ -1000,6 +624,245 @@ curl -X 'GET' \
               "phone_number": "09904195113",
               "full_name": "teacher3",
               "avatar": null,
+              "description": null,
+              "role": "teacher",
+              "rank": null,
+              "status": "active",
+              "book_visits": [],
+              "_constructor-name_": "UserEntity"
+            },
+            "_constructor-name_": "AuthorEntity"
+          }
+        ]
+      },
+      {
+        "id": "2de8021c-1292-4c3c-8149-acfb3eb1fc16",
+        "created_at": "2024-11-24T11:04:14.175Z",
+        "updated_at": "2024-12-15T08:28:07.824Z",
+        "deleted_at": null,
+        "code_id": 975224,
+        "description": "No content",
+        "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
+        "name": "Cấu trúc dữ liệu và Giải thuật",
+        "name_search": "Cau truc du lieu va Giai thuat",
+        "avatar": "https://api.hsabook.vn/uploads/2024-11-24/1732446222652.jpg",
+        "quantity": 116,
+        "expiration_date": 1,
+        "active": true,
+        "publishing_house": null,
+        "subject": null,
+        "is_file": true,
+        "file_download": "https://api.hsabook.vn/uploads/2024-11-24/1732460054467.docx",
+        "xlsx_files": [
+          {
+            "name": "Sách - Cấu trúc dữ liệu và Giải thuật - Xuất lần 0 ngày 2024-12-15.xls",
+            "url": "http://localhost:8346/uploads/book-975224/Sách - Cấu trúc dữ liệu và Giải thuật - Xuất lần 0 ngày 2024-12-15.xls",
+            "time": "2024-12-15",
+            "amount": 10,
+            "timestamp": 1734251287810
+          }
+        ],
+        "is_public": false,
+        "book_tags": [
+          {
+            "id": "1dda0b50-fba1-43a2-a87e-cd7939b9c212",
+            "created_at": "2024-11-24T16:13:00.369Z",
+            "updated_at": "2024-11-24T16:13:00.369Z",
+            "deleted_at": null,
+            "book_id": "2de8021c-1292-4c3c-8149-acfb3eb1fc16",
+            "tag_id": "1fb337a2-fec8-49fd-a3dc-c3e7f7722123",
+            "user_id": null,
+            "tag": {
+              "id": "1fb337a2-fec8-49fd-a3dc-c3e7f7722123",
+              "created_at": "2024-11-24T11:03:35.200Z",
+              "updated_at": "2024-11-24T11:03:35.200Z",
+              "deleted_at": null,
+              "description": "IT Books",
+              "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
+              "updated_by": null,
+              "deleted_by": null,
+              "name": "IT",
+              "name_search": "IT",
+              "avatar": null,
+              "parent_id": null,
+              "_constructor-name_": "CategoryEntity"
+            },
+            "_constructor-name_": "BookTagsEntity"
+          }
+        ],
+        "authors": [
+          {
+            "id": "2889df1b-4f2a-4edc-8dae-1f8af950e70d",
+            "created_at": "2024-11-24T16:13:00.384Z",
+            "updated_at": "2024-11-24T16:13:00.384Z",
+            "deleted_at": null,
+            "book_id": "2de8021c-1292-4c3c-8149-acfb3eb1fc16",
+            "user_id": "44940508-4c38-48cd-82cc-188fa4fb871f",
+            "user": {
+              "id": "44940508-4c38-48cd-82cc-188fa4fb871f",
+              "created_at": "2024-11-22T14:06:22.737Z",
+              "updated_at": "2024-11-22T14:06:22.737Z",
+              "deleted_at": null,
+              "hash_password": "0c8abdb962f042d1857c66dd26b0c87b",
+              "username": "tungpv03",
+              "email": "tungpv03.work@gmail.com",
+              "phone_number": "0345498163",
+              "full_name": "Pham Viet Tung",
+              "avatar": "https://api.hsabook.vn/uploads/2024-11-22/1732284378888.jpg",
+              "description": null,
+              "role": "teacher",
+              "rank": null,
+              "status": "active",
+              "book_visits": [],
+              "_constructor-name_": "UserEntity"
+            },
+            "_constructor-name_": "AuthorEntity"
+          }
+        ]
+      },
+      {
+        "id": "ad7e4302-a24b-4ac9-944b-ee568ce92e76",
+        "created_at": "2024-11-23T18:23:48.526Z",
+        "updated_at": "2024-11-24T15:55:47.695Z",
+        "deleted_at": null,
+        "code_id": 272681,
+        "description": "Test ",
+        "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
+        "name": "Sách Văn",
+        "name_search": "Sach toan",
+        "avatar": "https://api.hsabook.vn/uploads/2024-11-24/1732386204981.svg",
+        "quantity": 400,
+        "expiration_date": 1,
+        "active": true,
+        "publishing_house": "Báo Kim Đồng ",
+        "subject": "Toan",
+        "is_file": true,
+        "file_download": "https://api.hsabook.vn/uploads/2024-11-24/1732463239591.docx",
+        "xlsx_files": null,
+        "is_public": false,
+        "book_tags": [
+          {
+            "id": "1775bce9-2554-4c3a-889a-bcc72e0b1cbe",
+            "created_at": "2024-11-24T09:55:56.643Z",
+            "updated_at": "2024-11-24T09:55:56.643Z",
+            "deleted_at": null,
+            "book_id": "ad7e4302-a24b-4ac9-944b-ee568ce92e76",
+            "tag_id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
+            "user_id": null,
+            "tag": {
+              "id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
+              "created_at": "2024-11-23T18:09:36.510Z",
+              "updated_at": "2024-11-23T18:09:36.510Z",
+              "deleted_at": null,
+              "description": "xzxxxx",
+              "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
+              "updated_by": null,
+              "deleted_by": null,
+              "name": "[Mong test nghiệm thu]",
+              "name_search": "category [Mong test nghiem thu]",
+              "avatar": null,
+              "parent_id": null,
+              "_constructor-name_": "CategoryEntity"
+            },
+            "_constructor-name_": "BookTagsEntity"
+          }
+        ],
+        "authors": [
+          {
+            "id": "c9449695-1d89-402a-ad31-6928642b70b3",
+            "created_at": "2024-11-24T09:55:56.649Z",
+            "updated_at": "2024-11-24T09:55:56.649Z",
+            "deleted_at": null,
+            "book_id": "ad7e4302-a24b-4ac9-944b-ee568ce92e76",
+            "user_id": "18e5eba9-e6f2-4580-9658-212a441a8d73",
+            "user": {
+              "id": "18e5eba9-e6f2-4580-9658-212a441a8d73",
+              "created_at": "2024-11-17T14:09:27.093Z",
+              "updated_at": "2024-11-17T14:09:27.093Z",
+              "deleted_at": null,
+              "hash_password": "81dc9bdb52d04dc20036dbd8313ed055",
+              "username": "toantran0512",
+              "email": "atccnode@gmail.com",
+              "phone_number": "093424223",
+              "full_name": "at",
+              "avatar": "https://api.hsabook.vn/uploads/2024-11-17/1731852523068.svg",
+              "description": null,
+              "role": "teacher",
+              "rank": null,
+              "status": "active",
+              "book_visits": [],
+              "_constructor-name_": "UserEntity"
+            },
+            "_constructor-name_": "AuthorEntity"
+          }
+        ]
+      },
+      {
+        "id": "c708f02e-3d62-4e33-9a59-4ed26101135b",
+        "created_at": "2024-11-23T18:10:12.406Z",
+        "updated_at": "2024-11-24T13:08:06.849Z",
+        "deleted_at": null,
+        "code_id": 777106,
+        "description": "###",
+        "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
+        "name": "Sách [Mong Test nghiệm thu ]",
+        "name_search": "Sach [Mong Test nghiem thu ]",
+        "avatar": "https://api.hsabook.vn/uploads/2024-11-24/1732385397603.png",
+        "quantity": 197,
+        "expiration_date": 1,
+        "active": true,
+        "publishing_house": "Báo Kim Đồng ",
+        "subject": "Toan",
+        "is_file": true,
+        "file_download": "https://api.hsabook.vn/uploads/2024-11-24/1732453686846.docx",
+        "xlsx_files": null,
+        "is_public": false,
+        "book_tags": [
+          {
+            "id": "59de030b-e652-411d-b96e-1ed20a321858",
+            "created_at": "2024-11-23T18:39:01.186Z",
+            "updated_at": "2024-11-23T18:39:01.186Z",
+            "deleted_at": null,
+            "book_id": "c708f02e-3d62-4e33-9a59-4ed26101135b",
+            "tag_id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
+            "user_id": null,
+            "tag": {
+              "id": "7f90a313-d4a5-4f30-9bb5-105bb38cf759",
+              "created_at": "2024-11-23T18:09:36.510Z",
+              "updated_at": "2024-11-23T18:09:36.510Z",
+              "deleted_at": null,
+              "description": "xzxxxx",
+              "user_id": "2dcab833-7e42-498e-bebb-bd9da4a2e5b2",
+              "updated_by": null,
+              "deleted_by": null,
+              "name": "[Mong test nghiệm thu]",
+              "name_search": "category [Mong test nghiem thu]",
+              "avatar": null,
+              "parent_id": null,
+              "_constructor-name_": "CategoryEntity"
+            },
+            "_constructor-name_": "BookTagsEntity"
+          }
+        ],
+        "authors": [
+          {
+            "id": "260f5113-03f9-432b-a683-476765c01ff7",
+            "created_at": "2024-11-23T18:39:01.207Z",
+            "updated_at": "2024-11-23T18:39:01.207Z",
+            "deleted_at": null,
+            "book_id": "c708f02e-3d62-4e33-9a59-4ed26101135b",
+            "user_id": "18e5eba9-e6f2-4580-9658-212a441a8d73",
+            "user": {
+              "id": "18e5eba9-e6f2-4580-9658-212a441a8d73",
+              "created_at": "2024-11-17T14:09:27.093Z",
+              "updated_at": "2024-11-17T14:09:27.093Z",
+              "deleted_at": null,
+              "hash_password": "81dc9bdb52d04dc20036dbd8313ed055",
+              "username": "toantran0512",
+              "email": "atccnode@gmail.com",
+              "phone_number": "093424223",
+              "full_name": "at",
+              "avatar": "https://api.hsabook.vn/uploads/2024-11-17/1731852523068.svg",
               "description": null,
               "role": "teacher",
               "rank": null,

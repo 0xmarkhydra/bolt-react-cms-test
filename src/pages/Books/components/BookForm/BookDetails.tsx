@@ -130,7 +130,7 @@ export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
             loading={isSubmitting}
             className="w-full h-12 text-base bg-[#45b630]"
           >
-            {isSubmitting ? 'Đang tạo sách...' : 'Tạo sách'}
+            {isSubmitting ? 'Đang lưu...' : 'Lưu thay đổi'}
           </Button>
         </Form.Item>
       </div>
