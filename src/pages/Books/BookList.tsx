@@ -3,49 +3,71 @@ import BookListHeader from './components/BookListHeader';
 import BookSearch from './components/BookSearch';
 import BookTable from './components/BookTable';
 import BookFormDrawer from './components/BookForm';
-import { mockBooks } from './data/mockBooks';
+import BookPrintDrawer from './components/BookPrintDrawer';
+import { useBooks } from './hooks/useBooks';
+import type { Book } from '../../api/books/types';
 import type { BookFormValues } from './components/BookForm/types';
 
 const BookList: React.FC = () => {
+  const { books, loading, totalBooks, refetch } = useBooks();
   const [searchText, setSearchText] = useState('');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [editingBook, setEditingBook] = useState<any>(null);
+  const [isPrintDrawerOpen, setPrintDrawerOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
-  const handleRefresh = () => {
-    // Implement refresh logic
-  };
+  const filteredBooks = books.filter(book => 
+    book.name.toLowerCase().includes(searchText.toLowerCase()) ||
+    book.code_id.toString().includes(searchText)
+  );
 
   const handleAddNew = () => {
-    setEditingBook(null);
+    setSelectedBook(null);
     setIsDrawerOpen(true);
   };
 
-  const handleEditBook = (book: any) => {
-    setEditingBook(book);
+  const handleEditBook = (book: Book) => {
+    setSelectedBook(book);
     setIsDrawerOpen(true);
   };
 
-  const handleDrawerSubmit = (values: BookFormValues) => {
+  const handlePrintBook = (book: Book) => {
+    setSelectedBook(book);
+    setPrintDrawerOpen(true);
+  };
+
+  const handleDrawerSubmit = async (values: BookFormValues) => {
     console.log('Form submitted:', values);
     setIsDrawerOpen(false);
+    await refetch();
+  };
+
+  const handlePrintConfirm = async (quantity: number) => {
+    console.log('Printing', quantity, 'copies of', selectedBook?.name);
+    setPrintDrawerOpen(false);
+    setSelectedBook(null);
+    await refetch();
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 min-w-0">
       <BookListHeader 
-        totalBooks={mockBooks.length}
-        onRefresh={handleRefresh}
+        totalBooks={totalBooks}
+        onRefresh={refetch}
         onAddNew={handleAddNew}
       />
 
-      <div className="bg-white rounded-lg shadow">
-        <BookSearch 
-          value={searchText}
-          onChange={setSearchText}
-        />
+      <div className="bg-white rounded-lg shadow min-w-0">
+        <div className="p-4 border-b">
+          <BookSearch 
+            value={searchText}
+            onChange={setSearchText}
+          />
+        </div>
         <BookTable 
-          data={mockBooks}
+          data={filteredBooks}
+          loading={loading}
           onEdit={handleEditBook}
+          onPrint={handlePrintBook}
         />
       </div>
 
@@ -53,9 +75,23 @@ const BookList: React.FC = () => {
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
         onSubmit={handleDrawerSubmit}
-        initialValues={editingBook}
-        title={editingBook ? 'Sửa thông tin sách' : 'Thêm sách mới'}
+        initialValues={selectedBook}
+        title={selectedBook ? 'Sửa thông tin sách' : 'Thêm sách mới'}
       />
+
+      {selectedBook && (
+        <BookPrintDrawer
+          open={isPrintDrawerOpen}
+          onClose={() => {
+            setPrintDrawerOpen(false);
+            setSelectedBook(null);
+          }}
+          onConfirm={handlePrintConfirm}
+          bookTitle={selectedBook.name}
+          publishDate={selectedBook.updated_at}
+          currentQuantity={selectedBook.quantity}
+        />
+      )}
     </div>
   );
 };

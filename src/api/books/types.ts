@@ -1,31 +1,63 @@
-export interface CreateBookPayload {
-  avatar: string;
-  name: string;
-  tags?: string;
-  authors?: string;
-  expiration_date?: number;
-  description?: string;
-  publishing_house?: string;
-  subject?: string;
+import type { Teacher } from '../users/types';
+import type { Category } from '../categories/types';
+
+export interface BookTag {
+  id: string;
+  book_id: string;
+  tag_id: string;
+  tag: Category;
 }
 
-export interface BookResponse {
+export interface BookAuthor {
   id: string;
+  book_id: string;
   user_id: string;
-  avatar: string;
-  name: string;
-  name_search: string;
-  description: string;
-  expiration_date: number;
+  user: Teacher;
+}
+
+export interface Book {
+  id: string;
   code_id: number;
-  quantity: number | null;
+  name: string;
+  description: string;
+  avatar: string;
+  quantity: number;
+  expiration_date: number;
   active: boolean;
   publishing_house: string | null;
   subject: string | null;
   is_file: boolean;
   file_download: string | null;
-  xlsx_files: any[];
+  xlsx_files: Array<{
+    name: string;
+    url: string;
+    time: string;
+    amount?: number;
+    timestamp?: number;
+  }>;
+  book_tags: BookTag[];
+  authors: BookAuthor[];
   created_at: string;
   updated_at: string;
-  deleted_at: string | null;
+}
+
+export interface BooksResponse {
+  messages: string;
+  data: {
+    pagination: {
+      current_page: number;
+      total_pages: number;
+      take: number;
+      total: number;
+    };
+    data: Book[];
+  };
+  status_code: number;
+}
+
+export interface GetBooksParams {
+  take?: number;
+  page?: number;
+  sort_field?: string;
+  sort_type?: 'ASC' | 'DESC';
 }
