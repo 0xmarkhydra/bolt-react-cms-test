@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer, Button } from 'antd';
+import { Drawer } from 'antd';
 import type { BookFormDrawerProps } from './types';
 import BookForm from './BookForm';
 
@@ -21,15 +21,6 @@ const BookFormDrawer: React.FC<BookFormDrawerProps> = ({
           paddingBottom: 80,
         }
       }}
-      extra={
-        <Button 
-          type="primary" 
-          onClick={() => {}}
-          className="bg-[#45b630]"
-        >
-          Lưu
-        </Button>
-      }
     >
       <BookForm
         onSubmit={(values) => {

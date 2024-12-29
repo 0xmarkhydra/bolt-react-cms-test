@@ -3,6 +3,7 @@ import { Form } from 'antd';
 import type { BookFormValues } from './types';
 import { BookCover } from './BookCover';
 import { BookDetails } from './BookDetails';
+import { useBookSubmit } from './useBookSubmit';
 
 interface BookFormProps {
   onSubmit: (values: BookFormValues) => void;
@@ -14,15 +15,7 @@ const BookForm: React.FC<BookFormProps> = ({
   initialValues
 }) => {
   const [form] = Form.useForm();
-
-  const handleSubmit = async () => {
-    try {
-      const values = await form.validateFields();
-      onSubmit(values);
-    } catch (error) {
-      console.error('Validation failed:', error);
-    }
-  };
+  const { isSubmitting, handleSubmit } = useBookSubmit(onSubmit);
 
   return (
     <Form
@@ -34,7 +27,7 @@ const BookForm: React.FC<BookFormProps> = ({
     >
       <div className="flex gap-12">
         <BookCover />
-        <BookDetails />
+        <BookDetails isSubmitting={isSubmitting} />
       </div>
     </Form>
   );

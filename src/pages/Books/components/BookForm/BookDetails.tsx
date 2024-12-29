@@ -1,16 +1,27 @@
 import React from 'react';
-import { Form, Input, Select } from 'antd';
+import { Form, Input, Select, Button, Spin } from 'antd';
 import { useBookFormData } from './useBookFormData';
 
 const { TextArea } = Input;
 
-export const BookDetails: React.FC = () => {
-  const { categories, authors, subjectOptions } = useBookFormData();
+interface BookDetailsProps {
+  isSubmitting?: boolean;
+}
+
+export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
+  const { categories, authors, subjectOptions, loading } = useBookFormData();
+
+  if (loading) {
+    return (
+      <div className="flex-1 flex items-center justify-center">
+        <Spin tip="Đang tải dữ liệu..." />
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1">
       <div className="space-y-6">
-        {/* Required Fields */}
         <Form.Item
           name="title"
           label={<span className="text-base">Tên sách</span>}
@@ -29,7 +40,6 @@ export const BookDetails: React.FC = () => {
           rules={[{ required: true, message: 'Vui lòng chọn môn học!' }]}
         >
           <Select
-            mode="multiple"
             placeholder="Chọn môn học"
             options={subjectOptions}
             className="w-full"
@@ -40,7 +50,7 @@ export const BookDetails: React.FC = () => {
         <Form.Item
           name="authors"
           label={<span className="text-base">Tác giả</span>}
-          rules={[{ required: true, message: 'Vui lòng chọn tác giả!' }]}
+          rules={[{ required: true, message: 'Vui lòng chọn ít nhất một tác giả!' }]}
         >
           <Select
             mode="multiple"
@@ -51,10 +61,10 @@ export const BookDetails: React.FC = () => {
           />
         </Form.Item>
 
-        {/* Optional Fields */}
         <Form.Item
           name="categories"
           label={<span className="text-base">Danh mục</span>}
+          rules={[{ required: true, message: 'Vui lòng chọn ít nhất một danh mục!' }]}
         >
           <Select
             mode="multiple"
@@ -86,6 +96,17 @@ export const BookDetails: React.FC = () => {
             size="large"
             className="py-2"
           />
+        </Form.Item>
+
+        <Form.Item className="mb-0">
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={isSubmitting}
+            className="w-full h-12 text-base bg-[#45b630]"
+          >
+            {isSubmitting ? 'Đang tạo sách...' : 'Tạo sách'}
+          </Button>
         </Form.Item>
       </div>
     </div>

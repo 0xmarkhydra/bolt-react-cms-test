@@ -1,4 +1,3 @@
-// Category related types
 export interface Category {
   key: string;
   name: string;
@@ -15,31 +14,23 @@ export interface CategoryDetailsProps {
   onDelete: (key: string) => void;
 }
 
-// Book subject types
-export enum Subjects {
-  // Nhóm môn bắt buộc
-  Toan = 'Toán',
-  NguVan = 'Ngữ văn',
-  NgoaiNgu = 'Ngoại ngữ',
+// Book subject types with API values
+export const SubjectValues = {
+  Toan: 'Toán',
+  NguVan: 'Ngữ văn',
+  NgoaiNgu: 'Ngoại ngữ',
+  VatLy: 'Vật lý',
+  HoaHoc: 'Hóa học',
+  SinhHoc: 'Sinh học',
+  LichSu: 'Lịch sử',
+  DiaLy: 'Địa lý',
+  GiaoDucCongDan: 'Giáo dục công dân',
+  TinHoc: 'Tin học',
+  CongNghe: 'Công nghệ',
+  TheDuc: 'Thể dục',
+  GiaoDucQuocPhong: 'Giáo dục quốc phòng và an ninh',
+  HocNghe: 'Học nghề',
+} as const;
 
-  // Nhóm môn Khoa học Tự nhiên
-  VatLy = 'Vật lý',
-  HoaHoc = 'Hóa học',
-  SinhHoc = 'Sinh học',
-
-  // Nhóm môn Khoa học Xã hội
-  LichSu = 'Lịch sử',
-  DiaLy = 'Địa lý',
-  GiaoDucCongDan = 'Giáo dục công dân',
-
-  // Nhóm môn bổ trợ
-  TinHoc = 'Tin học',
-  CongNghe = 'Công nghệ',
-
-  // Môn Giáo dục thể chất và quốc phòng
-  TheDuc = 'Thể dục',
-  GiaoDucQuocPhong = 'Giáo dục quốc phòng và an ninh',
-
-  // Môn Nghề phổ thông
-  HocNghe = 'Học nghề',
-}
+export type SubjectKey = keyof typeof SubjectValues;
+export type SubjectValue = typeof SubjectValues[SubjectKey];
