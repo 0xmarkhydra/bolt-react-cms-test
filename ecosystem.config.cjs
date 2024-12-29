@@ -5,7 +5,7 @@ module.exports = {
     args: "run start",
     env: {
       NODE_ENV: "production",
-      PORT: 5175,
+      PORT: 4173,
       VITE_API_ENDPOINT: "https://api.hsabook.vn"
     }
   }]
