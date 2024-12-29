@@ -24,7 +24,7 @@ export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
       <div className="space-y-6">
         <Form.Item
           name="title"
-          label={<span className="text-base">Tên sách</span>}
+          label={<span className="text-base">Tên sách <span className="text-red-500">*</span></span>}
           rules={[{ required: true, message: 'Vui lòng nhập tên sách!' }]}
         >
           <Input 
@@ -36,7 +36,8 @@ export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
 
         <Form.Item
           name="subjects"
-          label={<span className="text-base">Môn học</span>}
+          label={<span className="text-base">Môn học <span className="text-red-500">*</span></span>}
+          rules={[{ required: true, message: 'Vui lòng chọn môn học!' }]}
         >
           <Select
             placeholder="Chọn môn học"
@@ -77,8 +78,9 @@ export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
 
         <Form.Item
           name="expiration_date"
-          label={<span className="text-base">Thời hạn sử dụng (tháng)</span>}
+          label={<span className="text-base">Thời hạn sử dụng (tháng) <span className="text-red-500">*</span></span>}
           initialValue={12}
+          rules={[{ required: true, message: 'Vui lòng nhập thời hạn sử dụng!' }]}
         >
           <InputNumber
             min={1}
