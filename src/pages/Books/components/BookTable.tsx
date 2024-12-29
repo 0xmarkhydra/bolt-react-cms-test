@@ -12,8 +12,8 @@ interface BookTableProps {
   onDelete: (book: Book) => void;
 }
 
-const BookTable: React.FC<BookTableProps> = ({ 
-  data, 
+const BookTable: React.FC<BookTableProps> = ({
+  data,
   loading,
   onEdit,
   onPrint,
@@ -60,15 +60,15 @@ const BookTable: React.FC<BookTableProps> = ({
       render: (avatar) => (
         avatar ? (
           <div className="w-[60px] h-[80px] overflow-hidden">
-            <img 
-              src={avatar} 
-              alt="book cover" 
+            <img
+              src={avatar}
+              alt="book cover"
               className="w-full h-full object-cover rounded-sm"
             />
           </div>
         ) : (
           <div className="w-[60px] h-[80px] bg-gray-100 rounded-sm flex items-center justify-center text-gray-400">
-            No image
+            <div className="text-sm text-center">No image</div>
           </div>
         )
       ),
@@ -87,10 +87,10 @@ const BookTable: React.FC<BookTableProps> = ({
       render: (id) => (
         <div className="flex items-center gap-2">
           <span>{id}</span>
-          <Button 
-            type="text" 
+          <Button
+            type="text"
             size="small"
-            icon={<CopyOutlined className="text-gray-400 hover:text-gray-600" />} 
+            icon={<CopyOutlined className="text-gray-400 hover:text-gray-600" />}
             onClick={() => handleCopyId(id)}
           />
         </div>
@@ -113,9 +113,9 @@ const BookTable: React.FC<BookTableProps> = ({
       key: 'is_public',
       width: 100,
       render: (isPublic) => (
-        <Switch 
-          checked={isPublic} 
-          disabled 
+        <Switch
+          checked={isPublic}
+          disabled
           size="small"
         />
       ),
@@ -145,7 +145,7 @@ const BookTable: React.FC<BookTableProps> = ({
         // If there are more tags, show count
         if (tags.length > 2) {
           return (
-            <Tooltip 
+            <Tooltip
               title={
                 <div className="space-y-1">
                   {tags.map(tag => (
@@ -200,8 +200,8 @@ const BookTable: React.FC<BookTableProps> = ({
       fixed: 'right',
       width: 50,
       render: (_, record) => (
-        <Dropdown 
-          menu={{ items: getActionItems(record) }} 
+        <Dropdown
+          menu={{ items: getActionItems(record) }}
           trigger={['click']}
           placement="bottomRight"
         >
