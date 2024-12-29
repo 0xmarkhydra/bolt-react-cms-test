@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Tag, Space, Button, Dropdown, Tooltip, message, Switch } from 'antd';
+import { Table, Tag, Space, Button, Dropdown, Tooltip, message, Switch, Image } from 'antd';
 import { MoreOutlined, PrinterOutlined, EditOutlined, DeleteOutlined, CopyOutlined, EyeOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { Book } from '../../../api/books/types';
@@ -65,13 +65,19 @@ const BookTable: React.FC<BookTableProps> = ({
       dataIndex: 'avatar',
       key: 'avatar',
       width: 100,
-      render: (avatar) => (
+      render: (avatar, record) => (
         avatar ? (
-          <div className="w-[60px] h-[80px] overflow-hidden">
-            <img
+          <div className="w-[60px] h-[80px]">
+            <Image
               src={avatar}
-              alt="book cover"
+              alt={record?.name}
+              width={60}
+              height={80}
               className="w-full h-full object-cover rounded-sm"
+              preview={{
+                mask: 'View',
+                maskClassName: 'rounded-sm',
+              }}
             />
           </div>
         ) : (
