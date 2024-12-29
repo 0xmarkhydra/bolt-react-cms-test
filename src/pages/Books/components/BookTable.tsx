@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table, Tag, Space, Button, Dropdown, Tooltip } from 'antd';
-import { MoreOutlined, PrinterOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Table, Tag, Space, Button, Dropdown, Tooltip, message } from 'antd';
+import { MoreOutlined, PrinterOutlined, EditOutlined, DeleteOutlined, CopyOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { Book } from '../../../api/books/types';
 
@@ -19,6 +19,16 @@ const BookTable: React.FC<BookTableProps> = ({
   onPrint,
   onDelete
 }) => {
+  const handleCopyId = (id: number) => {
+    navigator.clipboard.writeText(id.toString())
+      .then(() => {
+        message.success('Đã sao chép ID sách');
+      })
+      .catch(() => {
+        message.error('Không thể sao chép ID sách');
+      });
+  };
+
   const getActionItems = (record: Book) => [
     {
       key: 'print',
@@ -107,11 +117,19 @@ const BookTable: React.FC<BookTableProps> = ({
       title: 'ID sách',
       dataIndex: 'code_id',
       key: 'code_id',
-      width: 120,
+      width: 150,
       render: (id) => (
-        <Tag color="blue" className="rounded-full">
-          {id}
-        </Tag>
+        <Space>
+          <Tag color="blue" className="rounded-full">
+            {id}
+          </Tag>
+          <Button 
+            type="text" 
+            icon={<CopyOutlined />} 
+            onClick={() => handleCopyId(id)}
+            className="text-gray-400 hover:text-gray-600"
+          />
+        </Space>
       ),
     },
     {
