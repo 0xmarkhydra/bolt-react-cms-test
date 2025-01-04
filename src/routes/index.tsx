@@ -5,6 +5,7 @@ import { BookList, BookCategories, BookIds } from '../pages/Books';
 import { UserManagement } from '../pages/Users';
 import { Questions, Exams } from '../pages/Warehouse';
 import { Sliders, Teachers, RecentSearches } from '../pages/Settings';
+import BookMenu from '../pages/Books/components/BookMenu';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/books/list" element={<BookList />} />
       <Route path="/books/categories" element={<BookCategories />} />
       <Route path="/books/ids" element={<BookIds />} />
+      <Route path="/books/:id/menu" element={<BookMenu />} />
       
       {/* Users route */}
       <Route path="/users" element={<UserManagement />} />

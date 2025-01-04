@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Tag, Space, Button, Dropdown, Tooltip, message, Switch, Image } from 'antd';
-import { MoreOutlined, PrinterOutlined, EditOutlined, DeleteOutlined, CopyOutlined, EyeOutlined } from '@ant-design/icons';
+import { MoreOutlined, PrinterOutlined, EditOutlined, DeleteOutlined, CopyOutlined, EyeOutlined, MenuOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import type { ColumnsType } from 'antd/es/table';
 import type { Book } from '../../../api/books/types';
 
@@ -21,6 +22,8 @@ const BookTable: React.FC<BookTableProps> = ({
   onDelete,
   onViewOverview
 }) => {
+  const navigate = useNavigate();
+
   const handleCopyId = (id: number) => {
     navigator.clipboard.writeText(id.toString())
       .then(() => {
@@ -37,6 +40,12 @@ const BookTable: React.FC<BookTableProps> = ({
       label: 'Xem tổng quan',
       icon: <EyeOutlined />,
       onClick: () => onViewOverview(record),
+    },
+    {
+      key: 'menu',
+      label: 'Menu sách',
+      icon: <MenuOutlined />,
+      onClick: () => navigate(`/books/${record.id}/menu`),
     },
     {
       key: 'print',
