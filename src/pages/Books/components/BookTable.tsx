@@ -45,7 +45,10 @@ const BookTable: React.FC<BookTableProps> = ({
       key: 'menu',
       label: 'Menu sách',
       icon: <MenuOutlined />,
-      onClick: () => navigate(`/books/${record.id}/menu`),
+      onClick: () => {
+        console.log('menu record.id', record.id);
+        navigate(`/books/${record.id}/menu`);
+      },
     },
     {
       key: 'print',
