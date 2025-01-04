@@ -1,14 +1,8 @@
 import React from 'react';
-import { Form, Input, Select, Button, Spin, InputNumber, Switch } from 'antd';
+import { Form, Input, Select, Spin, InputNumber, Switch } from 'antd';
 import { useBookFormData } from './useBookFormData';
 
-const { TextArea } = Input;
-
-interface BookDetailsProps {
-  isSubmitting?: boolean;
-}
-
-export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
+export const BookDetails: React.FC = () => {
   const { categories, authors, subjectOptions, loading } = useBookFormData();
 
   if (loading) {
@@ -103,35 +97,12 @@ export const BookDetails: React.FC<BookDetailsProps> = ({ isSubmitting }) => {
         </Form.Item>
 
         <Form.Item
-          name="summary"
-          label={<span className="text-base">Tóm tắt nội dung</span>}
-        >
-          <TextArea
-            rows={4}
-            placeholder="Nhập tóm tắt nội dung sách"
-            size="large"
-            className="py-2"
-          />
-        </Form.Item>
-
-        <Form.Item
           name="is_public"
           label={<span className="text-base">Công khai</span>}
           valuePropName="checked"
           initialValue={false}
         >
           <Switch />
-        </Form.Item>
-
-        <Form.Item className="mb-0">
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={isSubmitting}
-            className="w-full h-12 text-base bg-[#45b630]"
-          >
-            {isSubmitting ? 'Đang lưu...' : 'Lưu thay đổi'}
-          </Button>
         </Form.Item>
       </div>
     </div>

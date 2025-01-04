@@ -72,9 +72,12 @@ const BookOverviewDrawer: React.FC<BookOverviewDrawerProps> = ({
         {/* Description */}
         <div className="border-t pt-6">
           <h3 className="text-lg font-semibold mb-3">Mô tả</h3>
-          <p className="text-gray-600 whitespace-pre-wrap">
-            {book.description || 'Không có mô tả'}
-          </p>
+          <div 
+            className="text-gray-600 prose max-w-none"
+            dangerouslySetInnerHTML={{ 
+              __html: book.description || 'Không có mô tả'
+            }} 
+          />
         </div>
 
         {/* Categories */}

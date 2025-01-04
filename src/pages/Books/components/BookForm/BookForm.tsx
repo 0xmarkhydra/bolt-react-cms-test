@@ -1,15 +1,11 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
-import { Form } from 'antd';
+import { Form, Button } from 'antd';
 import type { BookFormValues } from './types';
 import type { Book } from '../../../../api/books/types';
 import { BookCover } from './BookCover';
 import { BookDetails } from './BookDetails';
+import { BookSummary } from './BookSummary';
 import { useBookSubmit } from './useBookSubmit';
-
-interface BookFormProps {
-  onSubmit: (values: BookFormValues) => void;
-  initialValues?: Book | null;
-}
 
 const BookForm = forwardRef<{ resetFields: () => void }, BookFormProps>(({
   onSubmit,
@@ -18,7 +14,6 @@ const BookForm = forwardRef<{ resetFields: () => void }, BookFormProps>(({
   const [form] = Form.useForm();
   const { isSubmitting, handleSubmit } = useBookSubmit(onSubmit, initialValues);
 
-  // Transform initialValues for the form
   const transformedValues = initialValues ? {
     title: initialValues.name,
     summary: initialValues.description,
@@ -30,7 +25,6 @@ const BookForm = forwardRef<{ resetFields: () => void }, BookFormProps>(({
     authors: initialValues.authors.map(author => author.user.id),
   } : undefined;
 
-  // Expose form methods to parent component
   useImperativeHandle(ref, () => ({
     resetFields: () => form.resetFields()
   }));
@@ -43,9 +37,26 @@ const BookForm = forwardRef<{ resetFields: () => void }, BookFormProps>(({
       onFinish={handleSubmit}
       className="py-6"
     >
-      <div className="flex gap-12">
-        <BookCover initialImage={initialValues?.avatar} />
-        <BookDetails isSubmitting={isSubmitting} />
+      <div className="space-y-8">
+        <div className="flex gap-12">
+          <BookCover initialImage={initialValues?.avatar} />
+          <BookDetails />
+        </div>
+
+        <div className="border-t pt-8">
+          <BookSummary />
+        </div>
+
+        <div className="border-t pt-8">
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={isSubmitting}
+            className="w-full h-12 text-base bg-[#45b630]"
+          >
+            {isSubmitting ? 'Đang lưu...' : 'Lưu thông tin'}
+          </Button>
+        </div>
       </div>
     </Form>
   );
