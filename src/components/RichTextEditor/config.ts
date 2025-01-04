@@ -3,7 +3,7 @@ import type { EditorOptions } from 'tinymce';
 export const EDITOR_OPTIONS: EditorOptions = {
   height: 500,
   menubar: false,
-  readonly: false, // Fix the read-only issue
+  readonly: false,
   plugins: [
     'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
     'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
@@ -19,6 +19,24 @@ export const EDITOR_OPTIONS: EditorOptions = {
   statusbar: false,
   image_title: true,
   automatic_uploads: true,
+  images_upload_url: 'https://api.hsabook.vn/media/upload', // Add API endpoint
+  images_upload_handler: async function (blobInfo, progress) {
+    const formData = new FormData();
+    formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+    try {
+      const response = await fetch('https://api.hsabook.vn/media/upload', {
+        method: 'POST',
+        body: formData
+      });
+      
+      const data = await response.json();
+      return data.data.url;
+    } catch (error) {
+      console.error('Upload failed:', error);
+      throw new Error('Image upload failed');
+    }
+  },
   file_picker_types: 'image',
   extended_valid_elements: '*[.*]',
   skin: 'oxide',
