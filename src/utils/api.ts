@@ -27,7 +27,10 @@ export const api = async (endpoint: string, options: ApiOptions = {}) => {
     baseHeaders['Content-Type'] = 'application/json';
   }
 
-  const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}${endpoint}`, {
+  const url = import.meta.env.VITE_API_ENDPOINT || 'https://api.hsabook.vn';
+  console.log('url api: ', url);
+  
+  const response = await fetch(`${url}${endpoint}`, {
     headers: {
       ...baseHeaders,
       ...headers,
