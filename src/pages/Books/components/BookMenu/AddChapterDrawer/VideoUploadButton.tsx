@@ -5,13 +5,20 @@ import { uploadVideo, validateVideoFile } from '../../../../../api/upload/videoS
 
 interface VideoUploadButtonProps {
   onSuccess: (url: string) => void;
+  onError?: (error: string) => void;
+  loading?: boolean;
 }
 
-const VideoUploadButton: React.FC<VideoUploadButtonProps> = ({ onSuccess }) => {
+const VideoUploadButton: React.FC<VideoUploadButtonProps> = ({ 
+  onSuccess, 
+  onError,
+  loading 
+}) => {
   const handleBeforeUpload = (file: File) => {
     const error = validateVideoFile(file);
     if (error) {
       message.error(error);
+      onError?.(error);
       return Upload.LIST_IGNORE;
     }
     return true;
@@ -23,7 +30,9 @@ const VideoUploadButton: React.FC<VideoUploadButtonProps> = ({ onSuccess }) => {
       onSuccess(url);
       message.success('Upload video thành công');
     } catch (error) {
-      message.error('Không thể upload video');
+      const errorMessage = 'Không thể upload video';
+      message.error(errorMessage);
+      onError?.(errorMessage);
       console.error('Upload error:', error);
     }
   };
@@ -34,8 +43,9 @@ const VideoUploadButton: React.FC<VideoUploadButtonProps> = ({ onSuccess }) => {
       showUploadList={false}
       beforeUpload={handleBeforeUpload}
       customRequest={({ file }) => handleUpload(file as File)}
+      disabled={loading}
     >
-      <Button size="small">
+      <Button size="small" loading={loading}>
         <UploadOutlined /> Chọn file
       </Button>
     </Upload>

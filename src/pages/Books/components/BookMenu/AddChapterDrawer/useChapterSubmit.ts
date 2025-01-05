@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { message } from 'antd';
-import { uploadFile } from '../../../../../api/upload';
 import { createMenuBook } from '../../../../../api/menu-book';
 import type { AddChapterFormValues } from './types';
 
@@ -8,48 +7,33 @@ export const useChapterSubmit = (bookId: string) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (values: AddChapterFormValues) => {
+    if (!values.title?.trim()) {
+      message.error('Vui lòng nhập tiêu đề');
+      return false;
+    }
+
     try {
       setIsSubmitting(true);
-
-      // Handle cover image upload
-      let coverUrl = '';
-      if (values.cover?.[0]?.originFileObj) {
-        coverUrl = await uploadFile(values.cover[0].originFileObj);
-      }
 
       // Handle video upload/embed
       let videoUrl = '';
       if (values.videos?.[0]) {
         if (values.videos[0].type === 'upload') {
           videoUrl = values.videos[0].content;
-        } else {
+        } else if (values.videos[0].type === 'embed') {
           videoUrl = values.videos[0].content;
         }
       }
 
       // Handle file attachments
-      const attachedFiles = await Promise.all(
-        (values.files || []).map(async (file) => {
-          if (file.originFileObj) {
-            const url = await uploadFile(file.originFileObj);
-            return {
-              url,
-              name: file.name,
-              size: file.size,
-              uid: file.uid,
-              type: file.type,
-            };
-          }
-          return file;
-        })
-      );
+      const attachedFiles = values.files || [];
 
       const payload = {
         type: 'CHUONG',
         book_id: bookId,
-        title: values.title,
+        title: values.title.trim(),
         description: values.content || '',
-        cover: coverUrl,
+        cover: values.cover || '', // Now values.cover is already the URL string
         active: values.active,
         video: videoUrl,
         attached: attachedFiles,
