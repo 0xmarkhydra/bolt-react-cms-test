@@ -24,12 +24,7 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      console.log('Form values before submit:', values); // Debug log
-      await onSubmit({
-        ...values,
-        content: values.content || '',
-        cover: values.cover || '', // Ensure cover is included
-      });
+      await onSubmit(values);
       form.resetFields();
     } catch (error) {
       console.error('Validation failed:', error);
@@ -59,20 +54,23 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
         className="mt-4"
         initialValues={{
           active: false,
-          cover: '', // Initialize cover with empty string
         }}
       >
         <div className="flex gap-8">
           {/* Left side - Cover Upload */}
-          <div className="flex-shrink-0">
+          <Form.Item
+            name="cover"
+            label={<span className="text-base">Ảnh bìa</span>}
+            className="flex-shrink-0 mb-0"
+          >
             <CoverUpload />
-          </div>
+          </Form.Item>
 
           {/* Right side - Other Fields */}
           <div className="flex-1">
             <Form.Item
               name="title"
-              label="Tiêu đề"
+              label={<span className="text-base">Tiêu đề <span className="text-red-500">*</span></span>}
               rules={[{ required: true, message: 'Vui lòng nhập tiêu đề' }]}
             >
               <Input placeholder="Nhập tiêu đề" />
@@ -90,7 +88,7 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
         {/* Rich Text Content */}
         <Form.Item
           name="content"
-          label="Nội dung"
+          label={<span className="text-base">Nội dung</span>}
         >
           <RichTextEditor
             placeholder="Nhập nội dung..."

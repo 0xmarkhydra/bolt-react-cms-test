@@ -1,12 +1,25 @@
 import React from 'react';
-import { Form, Upload, message } from 'antd';
+import { Upload, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { uploadFile } from '../../../../../api/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 
-const CoverUpload: React.FC = () => {
-  const [fileList, setFileList] = React.useState<UploadFile[]>([]);
-  const [uploading, setUploading] = React.useState(false);
+interface CoverUploadProps {
+  value?: string;
+  onChange?: (url: string) => void;
+}
+
+const CoverUpload: React.FC<CoverUploadProps> = ({ value, onChange }) => {
+  const [fileList, setFileList] = React.useState<UploadFile[]>(() => {
+    return value ? [
+      {
+        uid: '-1',
+        name: 'current-cover',
+        status: 'done',
+        url: value,
+      }
+    ] : [];
+  });
 
   const handleBeforeUpload = (file: File) => {
     // Check file type
@@ -30,12 +43,12 @@ const CoverUpload: React.FC = () => {
     // Handle file removal
     if (newFileList.length === 0) {
       setFileList([]);
+      onChange?.('');
       return;
     }
 
     // Handle new file upload
     if (file.status === 'uploading' && !file.url) {
-      setUploading(true);
       try {
         const url = await uploadFile(file.originFileObj);
         
@@ -49,56 +62,47 @@ const CoverUpload: React.FC = () => {
 
         // Update file list state
         setFileList([uploadedFile]);
+        
+        // Call onChange with the URL
+        onChange?.(url);
       } catch (error) {
         message.error('Không thể tải lên ảnh bìa');
         setFileList([]);
-      } finally {
-        setUploading(false);
+        onChange?.('');
       }
     }
   };
 
-  const uploadButton = (
-    <div className="upload-placeholder">
-      <PlusOutlined className="text-2xl mb-2" />
-      <div className="font-medium">Tải ảnh lên</div>
-      <div className="text-xs text-gray-500 mt-1">
-        PNG, JPG, JPEG (Max: 5MB)
-      </div>
-    </div>
-  );
-
   return (
-    <Form.Item 
-      name="cover"
-      label="Ảnh bìa"
-      getValueFromEvent={(e) => {
-        // Return the URL directly from the fileList
-        if (e?.fileList?.[0]?.url) {
-          return e.fileList[0].url;
-        }
-        return '';
+    <Upload
+      listType="picture-card"
+      className="cover-upload"
+      showUploadList={true}
+      maxCount={1}
+      fileList={fileList}
+      beforeUpload={handleBeforeUpload}
+      onChange={handleChange}
+      onRemove={() => {
+        setFileList([]);
+        onChange?.('');
+        return true;
       }}
-      initialValue=""
+      customRequest={({ onSuccess }) => {
+        setTimeout(() => {
+          onSuccess?.('ok');
+        }, 0);
+      }}
+      accept="image/png,image/jpeg,image/jpg"
     >
-      <Upload
-        listType="picture-card"
-        className="cover-upload"
-        showUploadList={true}
-        maxCount={1}
-        fileList={fileList}
-        beforeUpload={handleBeforeUpload}
-        onChange={handleChange}
-        customRequest={({ onSuccess }) => {
-          setTimeout(() => {
-            onSuccess?.('ok');
-          }, 0);
-        }}
-        accept="image/png,image/jpeg,image/jpg"
-      >
-        {fileList.length >= 1 ? null : uploadButton}
-      </Upload>
-
+      {fileList.length === 0 && (
+        <div className="upload-placeholder">
+          <PlusOutlined className="text-2xl mb-2" />
+          <div className="font-medium">Tải ảnh lên</div>
+          <div className="text-xs text-gray-500 mt-1">
+            PNG, JPG, JPEG (Max: 5MB)
+          </div>
+        </div>
+      )}
       <style>{`
         /* Container styles */
         .cover-upload {
@@ -118,6 +122,9 @@ const CoverUpload: React.FC = () => {
           border-radius: 8px;
           background: #fafafa;
           transition: all 0.3s;
+          display: ${fileList.length > 0 ? 'none' : 'flex'} !important;
+          align-items: center !important;
+          justify-content: center !important;
         }
 
         .cover-upload .ant-upload.ant-upload-select:hover {
@@ -127,12 +134,12 @@ const CoverUpload: React.FC = () => {
 
         /* Upload placeholder styles */
         .cover-upload .upload-placeholder {
-          padding: 24px;
+          width: 100%;
+          height: 100%;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          height: 100%;
           color: #666;
         }
 
@@ -178,7 +185,7 @@ const CoverUpload: React.FC = () => {
           right: 8px !important;
         }
       `}</style>
-    </Form.Item>
+    </Upload>
   );
 };
 
