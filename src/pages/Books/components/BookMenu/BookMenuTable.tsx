@@ -7,9 +7,14 @@ import type { MenuBook } from '../../../../api/menu-book/types';
 interface BookMenuTableProps {
   data: MenuBook[];
   loading?: boolean;
+  onDelete: (menuBook: MenuBook) => void;
 }
 
-const BookMenuTable: React.FC<BookMenuTableProps> = ({ data, loading }) => {
+const BookMenuTable: React.FC<BookMenuTableProps> = ({ 
+  data, 
+  loading,
+  onDelete
+}) => {
   const handleCopyId = (id: string) => {
     navigator.clipboard.writeText(id)
       .then(() => message.success('Đã sao chép ID'))
@@ -126,7 +131,12 @@ const BookMenuTable: React.FC<BookMenuTableProps> = ({ data, loading }) => {
             <Button type="text" icon={<EditOutlined />} />
           </Tooltip>
           <Tooltip title="Xóa">
-            <Button type="text" danger icon={<DeleteOutlined />} />
+            <Button 
+              type="text" 
+              danger 
+              icon={<DeleteOutlined />} 
+              onClick={() => onDelete(record)}
+            />
           </Tooltip>
         </Space>
       ),

@@ -1,15 +1,35 @@
 import React from 'react';
-import { Space, Button, Input, Tag } from 'antd';
-import { ReloadOutlined, PlusOutlined, ImportOutlined } from '@ant-design/icons';
+import { Space, Button, Input, Tag, Dropdown } from 'antd';
+import { ReloadOutlined, PlusOutlined, ImportOutlined, FileTextOutlined, BookOutlined } from '@ant-design/icons';
 
 const { Search } = Input;
 
 interface BookMenuHeaderProps {
   totalItems: number;
   onRefresh: () => void;
+  onAddChapter: () => void;
 }
 
-const BookMenuHeader: React.FC<BookMenuHeaderProps> = ({ totalItems, onRefresh }) => {
+const BookMenuHeader: React.FC<BookMenuHeaderProps> = ({ 
+  totalItems, 
+  onRefresh,
+  onAddChapter
+}) => {
+  const addMenuItems = [
+    {
+      key: 'chapter',
+      label: 'Thêm Chương',
+      icon: <BookOutlined />,
+      onClick: onAddChapter,
+    },
+    {
+      key: 'exam',
+      label: 'Thêm Bộ Đề',
+      icon: <FileTextOutlined />,
+      onClick: () => console.log('Add exam clicked'),
+    },
+  ];
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div className="flex items-center gap-2">
@@ -32,14 +52,20 @@ const BookMenuHeader: React.FC<BookMenuHeaderProps> = ({ totalItems, onRefresh }
           >
             Làm mới
           </Button>
-          <Button 
-            type="primary" 
-            icon={<PlusOutlined />}
-            size="large"
-            className="bg-[#45b630] hover:bg-[#3a9828]"
+          <Dropdown 
+            menu={{ items: addMenuItems }}
+            placement="bottomRight"
+            trigger={['click']}
           >
-            Thêm mục
-          </Button>
+            <Button 
+              type="primary" 
+              icon={<PlusOutlined />}
+              size="large"
+              className="bg-[#45b630] hover:bg-[#3a9828]"
+            >
+              Thêm mục
+            </Button>
+          </Dropdown>
           <Button 
             icon={<ImportOutlined />}
             size="large"

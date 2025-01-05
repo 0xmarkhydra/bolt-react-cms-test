@@ -9,3 +9,9 @@ export const getMenuBooks = async (params: GetMenuBookParams): Promise<MenuBookR
   
   return await api(`/menu-book?${queryParams.toString()}`);
 };
+
+export const deleteMenuBook = async (id: string): Promise<void> => {
+  await api(`/menu-book/${id}`, {
+    method: 'DELETE',
+  });
+};
