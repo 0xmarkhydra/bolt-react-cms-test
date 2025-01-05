@@ -2,6 +2,8 @@ import React from 'react';
 import { Drawer, Form, Input, Switch, Button } from 'antd';
 import RichTextEditor from '../../../../../components/RichTextEditor';
 import CoverUpload from './CoverUpload';
+import VideoUpload from './VideoUpload';
+import FileUpload from './FileUpload';
 import type { AddChapterFormValues } from './types';
 
 interface AddChapterDrawerProps {
@@ -88,6 +90,16 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
             placeholder="Nhập nội dung..."
             className="min-h-[300px]"
           />
+        </Form.Item>
+
+        {/* Video Upload Section */}
+        <Form.Item name="videos">
+          <VideoUpload />
+        </Form.Item>
+
+        {/* File Upload Section */}
+        <Form.Item name="files">
+          <FileUpload />
         </Form.Item>
       </Form>
     </Drawer>

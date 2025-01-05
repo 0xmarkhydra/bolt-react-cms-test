@@ -3,4 +3,6 @@ export interface AddChapterFormValues {
   content?: string;
   cover?: any;
   active: boolean;
+  videos?: any[];
+  files?: any[];
 }
