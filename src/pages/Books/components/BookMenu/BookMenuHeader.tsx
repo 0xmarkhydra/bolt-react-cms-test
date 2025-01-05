@@ -9,13 +9,17 @@ interface BookMenuHeaderProps {
   onRefresh: () => void;
   onAddChapter: () => void;
   onAddExam: () => void;
+  searchValue: string;
+  onSearch: (value: string) => void;
 }
 
 const BookMenuHeader: React.FC<BookMenuHeaderProps> = ({ 
   totalItems, 
   onRefresh,
   onAddChapter,
-  onAddExam
+  onAddExam,
+  searchValue,
+  onSearch
 }) => {
   const addMenuItems = [
     {
@@ -45,6 +49,8 @@ const BookMenuHeader: React.FC<BookMenuHeaderProps> = ({
           className="w-full sm:w-[300px]"
           allowClear
           size="large"
+          value={searchValue}
+          onChange={(e) => onSearch(e.target.value)}
         />
         <Space className="self-end">
           <Button 

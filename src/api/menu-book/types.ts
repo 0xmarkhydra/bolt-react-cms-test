@@ -1,5 +1,3 @@
-import type { Exam } from '../exams/types';
-
 export interface MenuBook {
   id: string;
   created_at: string;
@@ -37,6 +35,7 @@ export interface GetMenuBookParams {
   take?: number;
   sort_type?: 'ASC' | 'DESC';
   sort_field?: string;
+  search?: string; // Add search parameter
 }
 
 export interface CreateMenuBookPayload {
