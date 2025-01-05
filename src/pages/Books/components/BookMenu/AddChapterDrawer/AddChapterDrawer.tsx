@@ -24,7 +24,12 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      await onSubmit(values);
+      console.log('Form values before submit:', values); // Debug log
+      await onSubmit({
+        ...values,
+        content: values.content || '',
+        cover: values.cover || '', // Ensure cover is included
+      });
       form.resetFields();
     } catch (error) {
       console.error('Validation failed:', error);
@@ -52,6 +57,10 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
         form={form}
         layout="vertical"
         className="mt-4"
+        initialValues={{
+          active: false,
+          cover: '', // Initialize cover with empty string
+        }}
       >
         <div className="flex gap-8">
           {/* Left side - Cover Upload */}
@@ -72,7 +81,6 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
             <Form.Item
               name="active"
               valuePropName="checked"
-              initialValue={false}
             >
               <Switch checkedChildren="Kích hoạt" unCheckedChildren="Chưa kích hoạt" />
             </Form.Item>

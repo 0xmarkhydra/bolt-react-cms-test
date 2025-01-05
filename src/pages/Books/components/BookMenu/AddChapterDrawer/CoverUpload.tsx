@@ -73,13 +73,13 @@ const CoverUpload: React.FC = () => {
       name="cover"
       label="Ảnh bìa"
       getValueFromEvent={(e) => {
-        // Return the URL string directly for the form value
-        if (Array.isArray(e)) {
-          return e[0]?.url || '';
+        // Return the URL directly from the fileList
+        if (e?.fileList?.[0]?.url) {
+          return e.fileList[0].url;
         }
-        return e?.fileList[0]?.url || '';
+        return '';
       }}
-      validateTrigger={['onChange', 'onBlur']}
+      initialValue=""
     >
       <Upload
         listType="picture-card"
@@ -89,9 +89,10 @@ const CoverUpload: React.FC = () => {
         fileList={fileList}
         beforeUpload={handleBeforeUpload}
         onChange={handleChange}
-        customRequest={({ file, onSuccess }) => {
-          // This is handled in handleChange
-          onSuccess?.(file);
+        customRequest={({ onSuccess }) => {
+          setTimeout(() => {
+            onSuccess?.('ok');
+          }, 0);
         }}
         accept="image/png,image/jpeg,image/jpg"
       >
@@ -101,7 +102,7 @@ const CoverUpload: React.FC = () => {
       <style>{`
         /* Container styles */
         .cover-upload {
-          width: 280px !important;
+          width: 400px !important;
         }
 
         .cover-upload .ant-upload-wrapper {
@@ -110,8 +111,8 @@ const CoverUpload: React.FC = () => {
 
         /* Upload button styles */
         .cover-upload .ant-upload.ant-upload-select {
-          width: 280px !important;
-          height: 373px !important;
+          width: 400px !important;
+          height: 225px !important; /* 16:9 aspect ratio */
           margin: 0;
           border: 2px dashed #d9d9d9;
           border-radius: 8px;
@@ -137,12 +138,12 @@ const CoverUpload: React.FC = () => {
 
         /* Preview list styles */
         .cover-upload .ant-upload-list {
-          width: 280px !important;
+          width: 400px !important;
         }
 
         .cover-upload .ant-upload-list-item-container {
-          width: 280px !important;
-          height: 373px !important;
+          width: 400px !important;
+          height: 225px !important;
           margin: 0 !important;
           padding: 0 !important;
         }
