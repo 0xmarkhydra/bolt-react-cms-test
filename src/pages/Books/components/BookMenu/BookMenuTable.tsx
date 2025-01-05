@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Tag, Space, Button, Tooltip, Image, message, Dropdown } from 'antd';
-import { CopyOutlined, EditOutlined, DeleteOutlined, FileTextOutlined, PlusOutlined, BookOutlined, FileWordOutlined, MinusOutlined } from '@ant-design/icons';
+import { CopyOutlined, EditOutlined, DeleteOutlined, FileTextOutlined, PlusOutlined, BookOutlined, FileWordOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { MenuBook } from '../../../../api/menu-book/types';
 
@@ -29,18 +29,12 @@ const BookMenuTable: React.FC<BookMenuTableProps> = ({
     return items.map(item => {
       const processedItem: any = { ...item };
       if (!item.children?.length) {
-        processedItem.children = null;
+        processedItem.children = undefined;
       } else {
         processedItem.children = processData(item.children);
       }
       return processedItem;
     });
-  };
-
-  const processedData = processData(data);
-
-  const hasChildren = (record: MenuBook): boolean => {
-    return false;
   };
 
   const getAddMenuItems = (record: MenuBook) => [
@@ -70,12 +64,12 @@ const BookMenuTable: React.FC<BookMenuTableProps> = ({
       dataIndex: 'cover',
       width: 100,
       render: (cover: string) => (
-        <div className="w-[80px] h-[60px]">
+        <div className="flex items-center justify-center w-[80px] h-[60px]">
           {cover ? (
             <Image
               src={cover}
               alt="Cover"
-              className="w-full h-full object-cover rounded-lg shadow-sm"
+              className="max-w-full max-h-full object-contain rounded-lg"
               preview={{
                 mask: 'Xem',
                 maskClassName: 'rounded-lg',
@@ -190,16 +184,14 @@ const BookMenuTable: React.FC<BookMenuTableProps> = ({
     },
   ];
 
-  console.log('data', data);
+  const processedData = processData(data);
+
   return (
     <Table
       columns={columns}
       dataSource={processedData}
       loading={loading}
       rowKey="id"
-      expandable={{
-        rowExpandable: hasChildren
-      }}
       pagination={{
         total: data.length,
         pageSize: 10,
