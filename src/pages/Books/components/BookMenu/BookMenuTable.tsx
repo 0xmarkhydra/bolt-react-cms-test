@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Tag, Space, Button, Tooltip, Image, message, Dropdown } from 'antd';
-import { CopyOutlined, EditOutlined, DeleteOutlined, FileTextOutlined, PlusOutlined, BookOutlined, FileWordOutlined } from '@ant-design/icons';
+import { CopyOutlined, EditOutlined, DeleteOutlined, FileTextOutlined, PlusOutlined, BookOutlined, FileWordOutlined, MinusOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { MenuBook } from '../../../../api/menu-book/types';
 
@@ -23,6 +23,24 @@ const BookMenuTable: React.FC<BookMenuTableProps> = ({
     navigator.clipboard.writeText(id)
       .then(() => message.success('Đã sao chép ID'))
       .catch(() => message.error('Không thể sao chép ID'));
+  };
+
+  const processData = (items: MenuBook[]): MenuBook[] => {
+    return items.map(item => {
+      const processedItem: any = { ...item };
+      if (!item.children?.length) {
+        processedItem.children = null;
+      } else {
+        processedItem.children = processData(item.children);
+      }
+      return processedItem;
+    });
+  };
+
+  const processedData = processData(data);
+
+  const hasChildren = (record: MenuBook): boolean => {
+    return false;
   };
 
   const getAddMenuItems = (record: MenuBook) => [
@@ -172,15 +190,15 @@ const BookMenuTable: React.FC<BookMenuTableProps> = ({
     },
   ];
 
+  console.log('data', data);
   return (
     <Table
       columns={columns}
-      dataSource={data}
+      dataSource={processedData}
       loading={loading}
       rowKey="id"
       expandable={{
-        showExpandColumn: data.some(item => item.children?.length > 0),
-        rowExpandable: (record) => record.children?.length > 0,
+        rowExpandable: hasChildren
       }}
       pagination={{
         total: data.length,
