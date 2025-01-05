@@ -6,7 +6,7 @@ import type { AddChapterFormValues } from './types';
 export const useChapterSubmit = (bookId: string) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (values: AddChapterFormValues) => {
+  const handleSubmit = async (values: AddChapterFormValues, parentId?: string) => {
     if (!values.title?.trim()) {
       message.error('Vui lòng nhập tiêu đề');
       return false;
@@ -33,11 +33,12 @@ export const useChapterSubmit = (bookId: string) => {
         book_id: bookId,
         title: values.title.trim(),
         description: values.content || '',
-        cover: values.cover || '', // Now values.cover is already the URL string
+        cover: values.cover || '',
         active: values.active,
         video: videoUrl,
         attached: attachedFiles,
-        active_code_id: true,
+        active_code_id: values.active_code_id,
+        parent_id: parentId || null,
       };
 
       await createMenuBook(payload);

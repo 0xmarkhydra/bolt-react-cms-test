@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table, Tag, Space, Button, Tooltip, Image, message } from 'antd';
-import { CopyOutlined, EditOutlined, DeleteOutlined, FileTextOutlined } from '@ant-design/icons';
+import { Table, Tag, Space, Button, Tooltip, Image, message, Dropdown } from 'antd';
+import { CopyOutlined, EditOutlined, DeleteOutlined, FileTextOutlined, PlusOutlined, BookOutlined, FileWordOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { MenuBook } from '../../../../api/menu-book/types';
 
@@ -8,12 +8,16 @@ interface BookMenuTableProps {
   data: MenuBook[];
   loading?: boolean;
   onDelete: (menuBook: MenuBook) => void;
+  onAddChapter?: (parentChapter: MenuBook) => void;
+  onAddExam?: (parentChapter: MenuBook) => void;
 }
 
 const BookMenuTable: React.FC<BookMenuTableProps> = ({ 
   data, 
   loading,
-  onDelete
+  onDelete,
+  onAddChapter,
+  onAddExam
 }) => {
   const handleCopyId = (id: string) => {
     navigator.clipboard.writeText(id)
@@ -21,10 +25,25 @@ const BookMenuTable: React.FC<BookMenuTableProps> = ({
       .catch(() => message.error('Không thể sao chép ID'));
   };
 
+  const getAddMenuItems = (record: MenuBook) => [
+    {
+      key: 'chapter',
+      label: 'Thêm Chương',
+      icon: <BookOutlined />,
+      onClick: () => onAddChapter?.(record),
+    },
+    {
+      key: 'exam',
+      label: 'Thêm Bộ Đề',
+      icon: <FileWordOutlined />,
+      onClick: () => onAddExam?.(record),
+    },
+  ];
+
   const columns: ColumnsType<MenuBook> = [
     {
       title: 'STT',
-      width: 100,
+      width: 70,
       align: 'center',
       render: (_: any, _record: any, index: number) => index + 1,
     },
@@ -80,18 +99,16 @@ const BookMenuTable: React.FC<BookMenuTableProps> = ({
     {
       title: 'ID',
       dataIndex: 'code_id',
-      width: 150,
+      width: 120,
       render: (id: string) => (
         <Space>
-          <span className="font-mono">{id || '-'}</span>
-          {id && (
-            <Button
-              type="text"
-              icon={<CopyOutlined className="text-gray-400 hover:text-gray-600" />}
-              size="small"
-              onClick={() => handleCopyId(id)}
-            />
-          )}
+          <span>{id}</span>
+          <Button
+            type="text"
+            icon={<CopyOutlined className="text-gray-400 hover:text-gray-600" />}
+            size="small"
+            onClick={() => handleCopyId(id)}
+          />
         </Space>
       ),
     },
@@ -118,6 +135,18 @@ const BookMenuTable: React.FC<BookMenuTableProps> = ({
       fixed: 'right',
       render: (_: any, record: MenuBook) => (
         <Space>
+          {record.type === 'CHUONG' && (onAddChapter || onAddExam) && (
+            <Dropdown
+              menu={{ items: getAddMenuItems(record) }}
+              trigger={['click']}
+              placement="bottomRight"
+            >
+              <Button 
+                type="text" 
+                icon={<PlusOutlined />}
+              />
+            </Dropdown>
+          )}
           {record.exam?.file_download && (
             <Tooltip title="Tải xuống">
               <Button 

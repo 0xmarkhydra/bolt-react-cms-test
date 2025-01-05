@@ -8,12 +8,14 @@ interface BookMenuHeaderProps {
   totalItems: number;
   onRefresh: () => void;
   onAddChapter: () => void;
+  onAddExam: () => void;
 }
 
 const BookMenuHeader: React.FC<BookMenuHeaderProps> = ({ 
   totalItems, 
   onRefresh,
-  onAddChapter
+  onAddChapter,
+  onAddExam
 }) => {
   const addMenuItems = [
     {
@@ -26,7 +28,7 @@ const BookMenuHeader: React.FC<BookMenuHeaderProps> = ({
       key: 'exam',
       label: 'Thêm Bộ Đề',
       icon: <FileTextOutlined />,
-      onClick: () => console.log('Add exam clicked'),
+      onClick: onAddExam,
     },
   ];
 

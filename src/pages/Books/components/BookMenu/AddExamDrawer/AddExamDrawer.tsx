@@ -1,26 +1,22 @@
 import React from 'react';
-import { Drawer, Form, Input, Switch, Button, Space, Alert } from 'antd';
+import { Drawer, Form, Input, Switch, Button, Space } from 'antd';
 import RichTextEditor from '../../../../../components/RichTextEditor';
-import CoverUpload from './CoverUpload';
-import VideoUpload from './VideoUpload';
-import FileUpload from './FileUpload';
-import type { AddChapterFormValues } from './types';
-import type { MenuBook } from '../../../../../api/menu-book/types';
+import CoverUpload from '../AddChapterDrawer/CoverUpload';
+import ExamUpload from './ExamUpload';
+import type { AddExamFormValues } from './types';
 
-interface AddChapterDrawerProps {
+interface AddExamDrawerProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (values: AddChapterFormValues) => void;
+  onSubmit: (values: AddExamFormValues) => void;
   loading?: boolean;
-  parentChapter?: MenuBook | null;
 }
 
-const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
+const AddExamDrawer: React.FC<AddExamDrawerProps> = ({
   open,
   onClose,
   onSubmit,
-  loading,
-  parentChapter
+  loading
 }) => {
   const [form] = Form.useForm();
 
@@ -36,7 +32,7 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
 
   return (
     <Drawer
-      title={parentChapter ? `Thêm mục cho "${parentChapter.title}"` : "Thêm mới thông tin"}
+      title="Thêm bộ đề"
       open={open}
       onClose={onClose}
       width={800}
@@ -51,15 +47,6 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
         </Button>
       }
     >
-      {parentChapter && (
-        <Alert
-          message={`Bạn đang thêm mục con cho chương "${parentChapter.title}"`}
-          type="info"
-          showIcon
-          className="mb-6"
-        />
-      )}
-
       <Form
         form={form}
         layout="vertical"
@@ -120,18 +107,16 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
           />
         </Form.Item>
 
-        {/* Video Upload Section */}
-        <Form.Item name="videos">
-          <VideoUpload />
-        </Form.Item>
-
-        {/* File Upload Section */}
-        <Form.Item name="files">
-          <FileUpload />
+        {/* Exam Upload Section */}
+        <Form.Item 
+          name="exam"
+          label={<span className="text-base">Đính kèm bộ đề</span>}
+        >
+          <ExamUpload />
         </Form.Item>
       </Form>
     </Drawer>
   );
 };
 
-export default AddChapterDrawer;
+export default AddExamDrawer;
