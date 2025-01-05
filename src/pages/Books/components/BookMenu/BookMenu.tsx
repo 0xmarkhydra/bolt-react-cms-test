@@ -63,7 +63,7 @@ const BookMenu: React.FC = () => {
   };
 
   const handleAddExam = async (values: AddExamFormValues) => {
-    const success = await handleExamSubmit(values);
+    const success = await handleExamSubmit(values, parentChapter?.id);
     if (success) {
       setIsAddExamDrawerOpen(false);
       setParentChapter(null);
@@ -134,6 +134,7 @@ const BookMenu: React.FC = () => {
         }}
         onSubmit={handleAddExam}
         loading={isSubmittingExam}
+        parentChapter={parentChapter}
       />
     </div>
   );

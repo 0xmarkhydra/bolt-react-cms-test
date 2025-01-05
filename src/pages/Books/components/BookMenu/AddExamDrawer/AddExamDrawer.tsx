@@ -1,22 +1,25 @@
 import React from 'react';
-import { Drawer, Form, Input, Switch, Button, Space } from 'antd';
+import { Drawer, Form, Input, Switch, Button, Space, Alert } from 'antd';
 import RichTextEditor from '../../../../../components/RichTextEditor';
 import CoverUpload from '../AddChapterDrawer/CoverUpload';
 import ExamUpload from './ExamUpload';
 import type { AddExamFormValues } from './types';
+import type { MenuBook } from '../../../../../api/menu-book/types';
 
 interface AddExamDrawerProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (values: AddExamFormValues) => void;
   loading?: boolean;
+  parentChapter?: MenuBook | null;
 }
 
 const AddExamDrawer: React.FC<AddExamDrawerProps> = ({
   open,
   onClose,
   onSubmit,
-  loading
+  loading,
+  parentChapter
 }) => {
   const [form] = Form.useForm();
 
@@ -32,7 +35,7 @@ const AddExamDrawer: React.FC<AddExamDrawerProps> = ({
 
   return (
     <Drawer
-      title="Thêm bộ đề"
+      title={parentChapter ? `Thêm bộ đề cho "${parentChapter.title}"` : "Thêm bộ đề"}
       open={open}
       onClose={onClose}
       width={800}
@@ -47,6 +50,15 @@ const AddExamDrawer: React.FC<AddExamDrawerProps> = ({
         </Button>
       }
     >
+      {parentChapter && (
+        <Alert
+          message={`Bạn đang thêm bộ đề cho chương "${parentChapter.title}"`}
+          type="info"
+          showIcon
+          className="mb-6"
+        />
+      )}
+
       <Form
         form={form}
         layout="vertical"

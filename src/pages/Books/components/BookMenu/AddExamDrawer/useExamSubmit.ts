@@ -6,7 +6,7 @@ import type { AddExamFormValues } from './types';
 export const useExamSubmit = (bookId: string) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (values: AddExamFormValues) => {
+  const handleSubmit = async (values: AddExamFormValues, parentId?: string) => {
     if (!values.title?.trim()) {
       message.error('Vui lòng nhập tiêu đề');
       return false;
@@ -24,6 +24,7 @@ export const useExamSubmit = (bookId: string) => {
         active: values.active,
         active_code_id: values.active_code_id,
         attached: values.exam ? [values.exam] : undefined,
+        parent_id: parentId || null, // Add parent_id to create exam as child
       };
 
       await createMenuBook(payload);
