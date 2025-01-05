@@ -24,7 +24,7 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      onSubmit(values);
+      await onSubmit(values);
       form.resetFields();
     } catch (error) {
       console.error('Validation failed:', error);
@@ -56,9 +56,7 @@ const AddChapterDrawer: React.FC<AddChapterDrawerProps> = ({
         <div className="flex gap-8">
           {/* Left side - Cover Upload */}
           <div className="flex-shrink-0">
-            <Form.Item name="cover">
-              <CoverUpload />
-            </Form.Item>
+            <CoverUpload />
           </div>
 
           {/* Right side - Other Fields */}

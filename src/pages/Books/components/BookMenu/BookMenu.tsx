@@ -6,7 +6,8 @@ import BookMenuTable from './BookMenuTable';
 import DeleteMenuBookModal from './DeleteMenuBookModal';
 import AddChapterDrawer from './AddChapterDrawer';
 import { useMenuBooks } from './useMenuBooks';
-import { deleteMenuBook } from '../../../../api/menu-book/menuBookService';
+import { deleteMenuBook } from '../../../../api/menu-book';
+import { useChapterSubmit } from './AddChapterDrawer/useChapterSubmit';
 import type { MenuBook } from '../../../../api/menu-book/types';
 import type { AddChapterFormValues } from './AddChapterDrawer/types';
 
@@ -18,6 +19,7 @@ const BookMenu: React.FC = () => {
   const [isAddChapterDrawerOpen, setIsAddChapterDrawerOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const { isSubmitting, handleSubmit } = useChapterSubmit(id || '');
 
   const handleDeleteMenuBook = (menuBook: MenuBook) => {
     setSelectedMenuBook(menuBook);
@@ -44,9 +46,12 @@ const BookMenu: React.FC = () => {
     }
   };
 
-  const handleAddChapter = (values: AddChapterFormValues) => {
-    console.log('Add chapter values:', values);
-    setIsAddChapterDrawerOpen(false);
+  const handleAddChapter = async (values: AddChapterFormValues) => {
+    const success = await handleSubmit(values);
+    if (success) {
+      setIsAddChapterDrawerOpen(false);
+      refetch();
+    }
   };
 
   return (
@@ -82,6 +87,7 @@ const BookMenu: React.FC = () => {
         open={isAddChapterDrawerOpen}
         onClose={() => setIsAddChapterDrawerOpen(false)}
         onSubmit={handleAddChapter}
+        loading={isSubmitting}
       />
     </div>
   );

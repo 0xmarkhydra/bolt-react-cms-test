@@ -38,3 +38,15 @@ export interface GetMenuBookParams {
   sort_type?: 'ASC' | 'DESC';
   sort_field?: string;
 }
+
+export interface CreateMenuBookPayload {
+  type: 'DE' | 'BAI' | 'CHUONG';
+  book_id: string;
+  title: string;
+  description?: string;
+  cover?: string;
+  active: boolean;
+  video?: string;
+  attached?: any[];
+  active_code_id?: boolean;
+}
