@@ -16,7 +16,15 @@ import type { AddExamFormValues } from './AddExamDrawer/types';
 
 const BookMenu: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { menuBooks, loading, totalItems, refetch } = useMenuBooks(id || '');
+  const { 
+    menuBooks, 
+    loading, 
+    totalItems, 
+    searchText,
+    setSearchText,
+    refetch 
+  } = useMenuBooks(id || '');
+  
   const [selectedMenuBook, setSelectedMenuBook] = useState<MenuBook | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAddChapterDrawerOpen, setIsAddChapterDrawerOpen] = useState(false);
@@ -84,6 +92,8 @@ const BookMenu: React.FC = () => {
           setParentChapter(null);
           setIsAddExamDrawerOpen(true);
         }}
+        searchValue={searchText}
+        onSearch={setSearchText}
       />
       
       <div className="bg-white rounded-lg shadow-sm">
