@@ -17,7 +17,7 @@ function App() {
     const checkAuth = async () => {
       if (accessToken) {
         try {
-          const response = await fetch(CONFIG_APP + '/users/info', {
+          const response = await fetch(CONFIG_APP.API_ENDPOINT + '/users/info', {
             headers: {
               'Authorization': `Bearer ${accessToken}`
             }

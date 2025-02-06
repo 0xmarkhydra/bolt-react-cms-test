@@ -4,7 +4,6 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import CONFIG_APP from '../utils/config';
-import logo from '../assets/images/logo.png';
 
 interface LoginForm {
   username: string;
@@ -71,7 +70,7 @@ const Login: React.FC = () => {
       <Card className="w-full max-w-[400px]">
         <div className="text-center mb-8">
           <img
-            src={logo}
+            src={'https://s3-website-r1.s3cloud.vn/hsa/2025-02-06/1738870934102.png'}
             alt="HSAbook Logo"
             className="h-16 mx-auto mb-4"
           />

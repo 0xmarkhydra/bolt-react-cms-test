@@ -1,4 +1,6 @@
 import { useAuthStore } from '../store/authStore';
+import axios from 'axios';
+import CONFIG_APP from './config';
 
 interface ApiOptions extends RequestInit {
   requiresAuth?: boolean;
@@ -46,4 +48,26 @@ export const api = async (endpoint: string, options: ApiOptions = {}) => {
   }
 
   return data;
+};
+
+export const checkLoginStatus = async () => {
+  try {
+    console.log('checkLoginStatus', CONFIG_APP.API_ENDPOINT + '/users/check-login')
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    const response = await axios.get(CONFIG_APP.API_ENDPOINT + '/users/check-login', {
+      method: 'POST',
+      headers: {
+        'accept': '*/*',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    console.log('response', response)
+
+    return response.status === 200;
+  } catch (error) {
+    console.error('Lỗi khi kiểm tra trạng thái đăng nhập:', error);
+    return false;
+  }
 };
