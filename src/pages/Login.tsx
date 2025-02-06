@@ -42,7 +42,7 @@ const Login: React.FC = () => {
   const onFinish = async (values: LoginForm) => {
     setLoading(true);
     try {
-      const response = await fetch('https://api.hsabook.vn/auth/login', {
+      const response = await fetch(CONFIG_APP.API_ENDPOINT + '/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

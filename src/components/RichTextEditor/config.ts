@@ -1,4 +1,5 @@
 import type { EditorOptions } from 'tinymce';
+import CONFIG_APP from '../../utils/config';
 
 export const EDITOR_OPTIONS: EditorOptions = {
   height: 500,
@@ -19,13 +20,13 @@ export const EDITOR_OPTIONS: EditorOptions = {
   statusbar: false,
   image_title: true,
   automatic_uploads: true,
-  images_upload_url: 'https://api.hsabook.vn/media/upload', // Add API endpoint
+  images_upload_url: CONFIG_APP.API_ENDPOINT + '/media/upload', // Add API endpoint
   images_upload_handler: async function (blobInfo, progress) {
     const formData = new FormData();
     formData.append('file', blobInfo.blob(), blobInfo.filename());
 
     try {
-      const response = await fetch('https://api.hsabook.vn/media/upload', {
+      const response = await fetch(CONFIG_APP.API_ENDPOINT + '/media/upload', {
         method: 'POST',
         body: formData
       });

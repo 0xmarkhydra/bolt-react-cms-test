@@ -4,9 +4,9 @@ module.exports = {
     script: "npm",
     args: "run start",
     env: {
-      NODE_ENV: "production",
+      NODE_ENV: "development",
       PORT: 4173,
-      VITE_API_ENDPOINT: "https://api.hsabook.vn"
+      VITE_API_ENDPOINT: "https://hsa-education-backend-dev.up.railway.app/"
     }
   }]
 }
