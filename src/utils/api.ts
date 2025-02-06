@@ -29,8 +29,7 @@ export const api = async (endpoint: string, options: ApiOptions = {}) => {
     baseHeaders['Content-Type'] = 'application/json';
   }
 
-  const url = import.meta.env.VITE_API_ENDPOINT || 'https://hsa-education-backend-dev.up.railway.app/';
-  console.log('url api: ', url);
+  const url = CONFIG_APP.API_ENDPOINT;
   
   const response = await fetch(`${url}${endpoint}`, {
     headers: {
