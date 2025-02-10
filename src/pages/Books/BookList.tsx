@@ -55,12 +55,6 @@ const BookList: React.FC = () => {
     setIsOverviewDrawerOpen(true);
   };
 
-  const handlePrintConfirm = (quantity: number) => {
-    console.log('Printing', quantity, 'copies of', selectedBook?.name);
-    setIsPrintDrawerOpen(false);
-    setSelectedBook(null);
-  };
-
   const handleDeleteBook = (book: Book) => {
     setSelectedBook(book);
     setIsDeleteModalOpen(true);
@@ -135,10 +129,8 @@ const BookList: React.FC = () => {
               setIsPrintDrawerOpen(false);
               setSelectedBook(null);
             }}
-            onConfirm={handlePrintConfirm}
+            bookId={selectedBook.id}
             bookTitle={selectedBook.name}
-            publishDate={selectedBook.updated_at}
-            currentQuantity={selectedBook.quantity || 0}
           />
 
           <BookOverviewDrawer

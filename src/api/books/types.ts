@@ -1,3 +1,5 @@
+import type { Exam } from '../exams/types';
+
 export interface Book {
   id: string;
   name: string;
@@ -44,4 +46,22 @@ export interface UpdateBookPayload {
   subject?: string;
 }
 
-// Rest of the existing types...
+export interface PublishHistory {
+  name: string;
+  url: string;
+  time: string;
+  amount: number;
+  timestamp: number;
+}
+
+export interface PublishResponse {
+  messages: string;
+  data: PublishHistory;
+  status_code: number;
+}
+
+export interface PublishHistoryResponse {
+  messages: string;
+  data: PublishHistory[];
+  status_code: number;
+}
